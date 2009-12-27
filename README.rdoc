@@ -1,6 +1,33 @@
 = rack-google-analytics
 
-Description goes here.
+Simple Rack middleware to help injecting the google analytics tracking code into the footer of your websites.
+
+This middleware injects the code directly before the `</body>` tag of documents matching the `Content-Type` of `/html/` (therefore `text/html`). You should also be aware that as this rewrites the body length, the `Content-Length` header is also removed (sure, I could rewrite it, but i'm not aware of any benefits.)
+
+As of `0.1.0` there are no tests as I'm on a plane and I forgot to install `rack-test` expect this to improve for the next release.
+
+== Usage
+
+  require 'rack-google-analytics'
+  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+
+== Thread Safety
+
+This middleware *should* be thread safe. Although my experience in such areas is limited, having taken the advice of those with more experience; I defer the call to a shallow copy of the environment, if this is of consequence to you please review the implementation.
+
+== Caveats
+
+I'm not aware of any, except of course that I remove the `Content-Length` header.
+
+== Bugs & Feedback
+
+More than welcome, of course please see the notes below for contributor's tips, otherwise drop me a mail or open an issue.
+
+This was of course software to scratch my itch; but I'd love to build on it and learn from the experiences of others using it.
+
+== Change Log
+
+* 27-12-2009 First Release, extracted from the Capistrano-Website project and packaged with Jeweler.
 
 == Note on Patches/Pull Requests
  
