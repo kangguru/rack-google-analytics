@@ -10,22 +10,23 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lee Hambley"]
   s.date = %q{2009-12-27}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{A simple Rack middleware compatible with Rails, Merb, Sinatra, etc. Easily installed inserts the google tracking code directly before the </body> of your Content-Type="*html" documents}
   s.email = %q{lee.hambley@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README",
      "README.rdoc"
   ]
   s.files = [
-    ".document",
+    "._README.rdoc",
+     ".document",
      ".gitignore",
      "LICENSE",
-     "README",
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "lib/._rack-google-analytics.rb",
      "lib/rack-google-analytics.rb",
+     "rack-google-analytics.gemspec",
      "test/helper.rb",
      "test/test_rack-google-analytics.rb"
   ]
@@ -33,7 +34,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Rack middleware to insert google analytics tracking code into the footer of HTML documents as served}
   s.test_files = [
     "test/helper.rb",
      "test/test_rack-google-analytics.rb"

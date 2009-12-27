@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rack-google-analytics"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Rack middleware to insert google analytics tracking code into the footer of HTML documents as served}
+    gem.description = %Q{A simple Rack middleware compatible with Rails, Merb, Sinatra, etc. Easily installed inserts the google tracking code directly before the </body> of your Content-Type="*html" documents}
     gem.email = "lee.hambley@gmail.com"
     gem.homepage = "http://github.com/leehambley/rack-google-analytics"
     gem.authors = ["Lee Hambley"]
