@@ -22,3 +22,4 @@ pkg
 ._*
 *.gem
 pkg/*
+rack-google-analytics.gemspec
