@@ -14,10 +14,27 @@ module Rack
     } catch(err) {}</script>
     EOTC
     
+    ASYNC_TRACKER_CODE = <<-EOTC
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-xxxxxx-x']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+      })();
+
+    </script>
+    EOTC
+
     def initialize(app, options = {})
       raise ArgumentError, "Tracker must be set!" unless options[:tracker] and !options[:tracker].empty?
       @app     = app
       @tracker = options[:tracker]
+      @async   = options[:async] || true
     end
     
     def call(env)
@@ -38,8 +55,13 @@ module Rack
     end
     
     def inject_tracker(response)
-      tracker_code = TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
-      response.sub!(/(<\/body>)/, "#{tracker_code}\n</body>")
+      if @async
+        tracker_code = ASYNC_TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
+        response.sub!(/<body>/, "<body>\n#{tracker_code}\n")
+      else
+        tracker_code = TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
+        response.sub!(/<\/body>/, "#{tracker_code}\n</body>")
+      end
     end
     
   end
