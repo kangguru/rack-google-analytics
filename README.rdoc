@@ -4,12 +4,21 @@ Simple Rack middleware to help injecting the google analytics tracking code into
 
 This middleware injects the code directly before the `</body>` tag of documents matching the `Content-Type` of `/html/` (therefore `text/html`). You should also be aware that as this rewrites the body length, the `Content-Length` header is also removed (sure, I could rewrite it, but i'm not aware of any benefits.)
 
-As of `0.1.0` there are no tests as I'm on a plane and I forgot to install `rack-test` expect this to improve for the next release.
+As of `0.2.0` there are no tests as I have not had chance to do this right.
+
+Version 0.2.0 implements the default code to be the asynchronous google code (see: http://bit.ly/async-analytics ).
 
 == Usage
 
   require 'rack-google-analytics'
   use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+  
+Note: since 0.2.0 this will use the asynchronous google tracker code, for the traditional behaviour please use:
+
+  require 'rack-google-analytics'
+  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
+
+If you are not sure what's best, go with the defaults, and read here if you should opt-out 
 
 == Thread Safety
 
@@ -17,7 +26,7 @@ This middleware *should* be thread safe. Although my experience in such areas is
 
 == Caveats
 
-I'm not aware of any, except of course that I remove the `Content-Length` header.
+I'm not aware of any, except that I remove the `Content-Length` header; this may interfere with your caching, e-tags and other mechanisms, if you are aware of any problems, please report them via Github issue's system.
 
 == Bugs & Feedback
 
@@ -27,6 +36,7 @@ This was of course software to scratch my itch; but I'd love to build on it and 
 
 == Change Log
 
+* 19-01-2010 Second Release, patch from github.com/ralph - makes the default snippet the async version from google. Use regular synchronous code with: `:async => false`
 * 27-12-2009 First Release, extracted from the Capistrano-Website project and packaged with Jeweler.
 
 == Note on Patches/Pull Requests
