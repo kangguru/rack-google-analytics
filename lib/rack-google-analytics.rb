@@ -57,11 +57,10 @@ module Rack
     def inject_tracker(response)
       if @async
         tracker_code = ASYNC_TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
-        response.sub!(/<body>/, "<body>\n#{tracker_code}\n") rescue response
       else
         tracker_code = TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
-        response.sub!(/<\/body>/, "#{tracker_code}\n</body>") rescue response
       end
+      response.sub!(/<body>/, "<body>\n#{tracker_code}\n") rescue response
     end
 
   end
