@@ -1,8 +1,8 @@
 module Rack
-  
+
   class GoogleTracker
-    
-    TRACKER_CODE = <<-EOTC 
+
+    TRACKER_CODE = <<-EOTC
     <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -13,7 +13,7 @@ module Rack
     pageTracker._trackPageview();
     } catch(err) {}</script>
     EOTC
-    
+
     ASYNC_TRACKER_CODE = <<-EOTC
     <script type="text/javascript">
 
@@ -36,13 +36,13 @@ module Rack
       @tracker = options[:tracker]
       @async   = options[:async] || true
     end
-    
+
     def call(env)
       dup._call(env)
     end
-    
+
     def _call(env)
-      
+
       @status, @headers, @response = @app.call(env)
       return [@status, @headers, @response] unless @headers['Content-Type'] =~ /html/
 
@@ -53,7 +53,7 @@ module Rack
       end
       response.finish
     end
-    
+
     def inject_tracker(response)
       if @async
         tracker_code = ASYNC_TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
@@ -63,7 +63,7 @@ module Rack
         response.sub!(/<\/body>/, "#{tracker_code}\n</body>") rescue response
       end
     end
-    
+
   end
-  
+
 end
