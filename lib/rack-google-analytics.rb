@@ -34,7 +34,8 @@ module Rack
       raise ArgumentError, "Tracker must be set!" unless options[:tracker] and !options[:tracker].empty?
       @app     = app
       @tracker = options[:tracker]
-      @async   = options[:async] || true
+      @async   = options[:async]
+      @async   = true if options[:async].nil?
       @env     = options[:env] || "production"
     end
 
