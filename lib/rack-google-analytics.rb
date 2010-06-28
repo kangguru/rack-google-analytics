@@ -60,7 +60,7 @@ module Rack
       else
         tracker_code = TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
       end
-      response.sub!(/<body>/, "<body>\n#{tracker_code}\n") rescue response
+      response.sub!(/<\/body>/, "\n#{tracker_code}\n</body>") rescue response
     end
 
   end
