@@ -35,6 +35,7 @@ module Rack
       @app     = app
       @tracker = options[:tracker]
       @async   = options[:async] || true
+      @env     = options[:env] || "production"
     end
 
     def call(env)
@@ -42,10 +43,8 @@ module Rack
     end
 
     def _call(env)
-
       @status, @headers, @response = @app.call(env)
-      return [@status, @headers, @response] unless @headers['Content-Type'] =~ /html/
-
+      return [@status, @headers, @response] unless @headers['Content-Type'] =~ /html/ && Rails.env.casecmp(@env) == 0
       @headers.delete('Content-Length')
       response = Rack::Response.new([], @status, @headers)
       @response.each do |fragment|
