@@ -45,7 +45,7 @@ module Rack
 
     def _call(env)
       @status, @headers, @response = @app.call(env)
-      return [@status, @headers, @response] unless @headers['Content-Type'] =~ /html/ && Rails.env.casecmp(@env) == 0
+      return [@status, @headers, @response] unless @headers['Content-Type'] =~ /html/ && defined?(Rails) && Rails.env.casecmp(@env) == 0
       @headers.delete('Content-Length')
       response = Rack::Response.new([], @status, @headers)
       @response.each do |fragment|
