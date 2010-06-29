@@ -20,6 +20,10 @@ Note: since 0.2.0 this will use the asynchronous google tracker code, for the tr
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out 
 
+== Environments
+
+There is a Rails-only (send a patch!) feature for only enabling this in certain environments, you can specify which by sending the `:env => 'some-env'` option when initializing the code. (Right now this conditionally requires the `Rails` constant.) The default is `production`.
+
 == Thread Safety
 
 This middleware *should* be thread safe. Although my experience in such areas is limited, having taken the advice of those with more experience; I defer the call to a shallow copy of the environment, if this is of consequence to you please review the implementation.
