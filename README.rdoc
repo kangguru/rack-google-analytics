@@ -52,3 +52,4 @@ This was of course software to scratch my itch; but I'd love to build on it and 
 == Copyright
 
 Copyright (c) 2009 Lee Hambley. See LICENSE for details.
+With thanks to Ralph von der Heyden http://github.com/ralph/ and Simon `cimm` Schoeters http://github.com/cimm/
