@@ -4,6 +4,8 @@ Simple Rack middleware to help injecting the google analytics tracking code into
 
 This middleware injects the code directly before the `</body>` tag of documents matching the `Content-Type` of `/html/` (therefore `text/html`). You should also be aware that as this rewrites the body length, the `Content-Length` header is also removed (sure, I could rewrite it, but i'm not aware of any benefits.)
 
+As of 0.6 the class is called Rack::GoogleAnalytics, in 0.5 and earlier this was incorrectly documented, and this name has now been decided upon.
+
 As of `0.2.0` there are no tests as I have not had chance to do this right.
 
 Version 0.2.0 implements the default code to be the asynchronous google code (see: http://bit.ly/async-analytics ).
@@ -11,12 +13,12 @@ Version 0.2.0 implements the default code to be the asynchronous google code (se
 == Usage
 
   require 'rack-google-analytics'
-  use Rack::GoogleTracker, :tracker => 'UA-xxxxxx-x'
+  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
   
 Note: since 0.2.0 this will use the asynchronous google tracker code, for the traditional behaviour please use:
 
   require 'rack-google-analytics'
-  use Rack::GoogleTracker, :tracker => 'UA-xxxxxx-x', :async => false
+  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out 
 
