@@ -11,12 +11,12 @@ Version 0.2.0 implements the default code to be the asynchronous google code (se
 == Usage
 
   require 'rack-google-analytics'
-  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+  use Rack::GoogleTracker, :tracker => 'UA-xxxxxx-x'
   
 Note: since 0.2.0 this will use the asynchronous google tracker code, for the traditional behaviour please use:
 
   require 'rack-google-analytics'
-  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
+  use Rack::GoogleTracker, :tracker => 'UA-xxxxxx-x', :async => false
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out 
 
