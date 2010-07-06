@@ -1,6 +1,6 @@
 module Rack
 
-  class GoogleTracker
+  class GoogleAnalytics
 
     TRACKER_CODE = <<-EOTC
     <script type="text/javascript">
