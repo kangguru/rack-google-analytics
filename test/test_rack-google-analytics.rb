@@ -2,13 +2,14 @@ require File.expand_path('../helper',__FILE__)
 
 class TestRackGoogleAnalytics < Test::Unit::TestCase
   
-  context "Asyncrous" do
+  context "Asyncronous" do
     context "default" do
       setup { mock_app :async => true, :tracker => 'somebody' }
       should "show asyncronous tracker" do
         get "/"
         assert_match %r{\_gaq\.push}, last_response.body
         assert_match %r{\'\_setAccount\', \"somebody\"}, last_response.body
+        assert_match %r{</script></head>}, last_response.body
         assert_equal "495", last_response.headers['Content-Length']
       end
 
@@ -47,5 +48,11 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
   
   context "Regular" do
     setup { mock_app :async => false, :tracker => 'whatthe' }
+    should "show non-asyncronous tracker" do
+      get "/bob"
+      assert_match %r{_gat._getTracker}, last_response.body
+      assert_match %r{</body><script type=\"text\/javascript\">}, last_response.body
+      assert_match %r{\"whatthe\"}, last_response.body
+    end
   end
 end

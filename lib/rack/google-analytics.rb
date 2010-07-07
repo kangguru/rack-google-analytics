@@ -1,8 +1,8 @@
 module Rack
 
   class GoogleAnalytics
-    DEFAULT = { :async => true, :env => 'production', :append => "</head>" }
-    
+    DEFAULT = { :async => true }
+
     def initialize(app, options = {})
       raise ArgumentError, "Tracker must be set!" unless options[:tracker] and !options[:tracker].empty?
       @app, @options = app, DEFAULT.merge(options)
@@ -18,15 +18,20 @@ module Rack
       response.finish
     end
 
-    def inject(response)
-      file = @options[:async] ? 'async' : 'tracker'
-      template = ::ERB.new ::File.read ::File.expand_path("../templates/#{file}.erb",__FILE__)
-      response.gsub(%r{#{@options[:append]}}, @options[:append] + template.result(binding))
-    end
-    
     private
-    def rails?; defined?(Rails) && Rails.env.casecmp(@env) == 0; end
+
     def html?; @headers['Content-Type'] =~ /html/; end
+
+    def inject(response)
+      file = @options[:async] ? 'async' : 'sync'
+      template = ::ERB.new ::File.read ::File.expand_path("../templates/#{file}.erb",__FILE__)
+      if @options[:async]
+        response.gsub(%r{</head>}, template.result(binding) + "</head>")
+      else
+        response.gsub(%r{</body>}, "</body>" + template.result(binding))
+      end
+    end
+
   end
 
 end

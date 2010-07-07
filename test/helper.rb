@@ -19,7 +19,7 @@ class Test::Unit::TestCase
       case request.path
       when '/' then [200,{ 'Content-Type' => 'application/html' },'<head>Hello world</head>']
       when '/test.xml' then [200,{'Content-Type' => 'application/xml'}, ['Xml here']]
-      when '/bob' then [200,{'Content-Type' => 'application/html'} ,['bob here']]
+      when '/bob' then [200,{'Content-Type' => 'application/html'} ,['<body>bob here</body>']]
       else [404,'Nothing here']
       end
     }
