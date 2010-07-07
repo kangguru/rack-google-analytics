@@ -32,7 +32,17 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{'_setDomainName', \"mydomain.com\"}, last_response.body
         assert_equal "542", last_response.headers['Content-Length']
       end
-    end  
+    end
+    
+    context "multiple top-level domains" do
+      setup { mock_app :async => true, :top_level => true, :tracker => 'get', :domain => 'mydomain.com' }
+      should "add top_level domain script" do
+        get "/"
+        assert_match %r{'_setDomainName', 'none'}, last_response.body
+        assert_match %r{'_setAllowLinker', true}, last_response.body
+      end
+    end
+
   end
   
   context "Regular" do
