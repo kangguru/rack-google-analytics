@@ -24,6 +24,15 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{bob here}, last_response.body
       end
     end
+
+    context "multiple sub domains" do
+      setup { mock_app :async => true, :multiple => true, :tracker => 'gonna', :domain => 'mydomain.com' }
+      should "add multiple domain script" do
+        get "/"
+        assert_match %r{'_setDomainName', \"mydomain.com\"}, last_response.body
+        assert_equal "542", last_response.headers['Content-Length']
+      end
+    end  
   end
   
   context "Regular" do
