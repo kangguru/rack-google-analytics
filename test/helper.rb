@@ -3,10 +3,7 @@ require 'test/unit'
 require 'shoulda'
 require 'rack'
 require 'rack/test'
-
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'rack-google-analytics'
+require File.expand_path('../../lib/rack/google-analytics',__FILE__)
 
 class Test::Unit::TestCase
   include Rack::Test::Methods

@@ -46,7 +46,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
 
   end
   
-  context "Regular" do
+  context "Syncronous" do
     setup { mock_app :async => false, :tracker => 'whatthe' }
     should "show non-asyncronous tracker" do
       get "/bob"

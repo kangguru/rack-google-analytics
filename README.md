@@ -1,4 +1,4 @@
-= rack-google-analytics
+# rack-google-analytics
 
 Simple Rack middleware to help injecting the google analytics tracking code into the footer of your websites.
 
@@ -10,7 +10,7 @@ As of `0.2.0` there are no tests as I have not had chance to do this right.
 
 Version 0.2.0 implements the default code to be the asynchronous google code (see: http://bit.ly/async-analytics ).
 
-== Usage
+## Usage
 
   require 'rack-google-analytics'
   use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
@@ -22,30 +22,26 @@ Note: since 0.2.0 this will use the asynchronous google tracker code, for the tr
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out 
 
-== Environments
+## Environments
 
 There is a Rails-only (send a patch!) feature for only enabling this in certain environments, you can specify which by sending the `:env => 'some-env'` option when initializing the code. (Right now this conditionally requires the `Rails` constant.) The default is `production`.
 
-== Thread Safety
+## Thread Safety
 
 This middleware *should* be thread safe. Although my experience in such areas is limited, having taken the advice of those with more experience; I defer the call to a shallow copy of the environment, if this is of consequence to you please review the implementation.
 
-== Caveats
-
-I'm not aware of any, except that I remove the `Content-Length` header; this may interfere with your caching, e-tags and other mechanisms, if you are aware of any problems, please report them via Github issue's system.
-
-== Bugs & Feedback
+## Bugs & Feedback
 
 More than welcome, of course please see the notes below for contributor's tips, otherwise drop me a mail or open an issue.
 
 This was of course software to scratch my itch; but I'd love to build on it and learn from the experiences of others using it.
 
-== Change Log
+## Change Log
 
 * 19-01-2010 Second Release, patch from github.com/ralph - makes the default snippet the async version from google. Use regular synchronous code with: `:async => false`
 * 27-12-2009 First Release, extracted from the Capistrano-Website project and packaged with Jeweler.
 
-== Note on Patches/Pull Requests
+## Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -55,7 +51,7 @@ This was of course software to scratch my itch; but I'd love to build on it and 
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2009 Lee Hambley. See LICENSE for details.
 With thanks to Ralph von der Heyden http://github.com/ralph/ and Simon `cimm` Schoeters http://github.com/cimm/

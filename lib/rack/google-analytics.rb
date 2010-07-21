@@ -1,3 +1,6 @@
+require 'rack'
+require 'erb'
+
 module Rack
 
   class GoogleAnalytics
@@ -24,11 +27,11 @@ module Rack
 
     def inject(response)
       file = @options[:async] ? 'async' : 'sync'
-      template = ::ERB.new ::File.read ::File.expand_path("../templates/#{file}.erb",__FILE__)
+      @template ||= ::ERB.new ::File.read ::File.expand_path("../templates/#{file}.erb",__FILE__)
       if @options[:async]
-        response.gsub(%r{</head>}, template.result(binding) + "</head>")
+        response.gsub(%r{</head>}, @template.result(binding) + "</head>")
       else
-        response.gsub(%r{</body>}, "</body>" + template.result(binding))
+        response.gsub(%r{</body>}, "</body>" + @template.result(binding))
       end
     end
 
