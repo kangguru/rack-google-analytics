@@ -22,22 +22,13 @@ Note: since 0.2.0 this will use the asynchronous google tracker code, for the tr
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out 
 
-## Environments
-
-There is a Rails-only (send a patch!) feature for only enabling this in certain environments, you can specify which by sending the `:env => 'some-env'` option when initializing the code. (Right now this conditionally requires the `Rails` constant.) The default is `production`.
-
 ## Thread Safety
 
 This middleware *should* be thread safe. Although my experience in such areas is limited, having taken the advice of those with more experience; I defer the call to a shallow copy of the environment, if this is of consequence to you please review the implementation.
 
-## Bugs & Feedback
-
-More than welcome, of course please see the notes below for contributor's tips, otherwise drop me a mail or open an issue.
-
-This was of course software to scratch my itch; but I'd love to build on it and learn from the experiences of others using it.
-
 ## Change Log
 
+* 22-07-2010 Major re-write from Arthur Chiu, now correctly writes the Content-Length leader, and comes with tests (High five to @achiu) - this patch also backs-out the changes from @cimm - but they were un-tested (I intend to bring these back as soon as possible; this will probably constitute a 1.0 release when it happens)
 * 19-01-2010 Second Release, patch from github.com/ralph - makes the default snippet the async version from google. Use regular synchronous code with: `:async => false`
 * 27-12-2009 First Release, extracted from the Capistrano-Website project and packaged with Jeweler.
 
@@ -54,4 +45,4 @@ This was of course software to scratch my itch; but I'd love to build on it and 
 ## Copyright
 
 Copyright (c) 2009 Lee Hambley. See LICENSE for details.
-With thanks to Ralph von der Heyden http://github.com/ralph/ and Simon `cimm` Schoeters http://github.com/cimm/
+With thanks to Ralph von der Heyden http://github.com/ralph/ and Simon `cimm` Schoeters http://github.com/cimm/ - And the biggest hand to Arthur `achiu` Chiu for the huge work that went into the massive 0.9 re-factor.
