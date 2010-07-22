@@ -1,18 +1,14 @@
-# rack-google-analytics
+# Rack google Analytics
 
 Simple Rack middleware to help injecting the google analytics tracking code into the footer of your websites.
 
-This middleware injects the code directly before the `</body>` tag of documents matching the `Content-Type` of `/html/` (therefore `text/html`). You should also be aware that as this rewrites the body length, the `Content-Length` header is also removed (sure, I could rewrite it, but i'm not aware of any benefits.)
+This middleware injects either the synchronous or asynchronous google analytics tracker code into the correct place of any request with `Content-Type` containing `html` (therefore `text/html` and similar).
 
-As of 0.6 the class is called Rack::GoogleAnalytics, in 0.5 and earlier this was incorrectly documented, and this name has now been decided upon.
-
-As of `0.2.0` there are no tests as I have not had chance to do this right.
-
-Version 0.2.0 implements the default code to be the asynchronous google code (see: http://bit.ly/async-analytics ).
+Formerly this gem had an environments setting, that has been removed pending refactoring.
 
 ## Usage
 
-  require 'rack-google-analytics'
+  require 'rack/google-analytics'
   use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
   
 Note: since 0.2.0 this will use the asynchronous google tracker code, for the traditional behaviour please use:
@@ -27,6 +23,11 @@ If you are not sure what's best, go with the defaults, and read here if you shou
 This middleware *should* be thread safe. Although my experience in such areas is limited, having taken the advice of those with more experience; I defer the call to a shallow copy of the environment, if this is of consequence to you please review the implementation.
 
 ## Change Log
+
+* 0.9.1 Updated readme to reflect 0.9.0 merge from achiu
+* 0.9.0 Include name changed from 'rack-google-analytics' to 'rack/google-analytics' more inline with the norm
+* 0.6.0 Class now named Rack::GoogleAnalytics, in 0.5 and earlier this was incorrectly documented as Rack::GoogleTracker
+* 0.2.0 Asynchronous code is now the default.
 
 * 22-07-2010 Major re-write from Arthur Chiu, now correctly writes the Content-Length leader, and comes with tests (High five to @achiu) - this patch also backs-out the changes from @cimm - but they were un-tested (I intend to bring these back as soon as possible; this will probably constitute a 1.0 release when it happens)
 * 19-01-2010 Second Release, patch from github.com/ralph - makes the default snippet the async version from google. Use regular synchronous code with: `:async => false`
