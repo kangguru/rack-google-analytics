@@ -24,6 +24,7 @@ This middleware *should* be thread safe. Although my experience in such areas is
 
 ## Change Log
 
+* 0.9.2 Fixed a bug with lots of missing files from the Gem... how silly!
 * 0.9.1 Updated readme to reflect 0.9.0 merge from achiu
 * 0.9.0 Include name changed from 'rack-google-analytics' to 'rack/google-analytics' more inline with the norm
 * 0.6.0 Class now named Rack::GoogleAnalytics, in 0.5 and earlier this was incorrectly documented as Rack::GoogleTracker
