@@ -8,13 +8,28 @@ Formerly this gem had an environments setting, that has been removed pending ref
 
 ## Usage
 
-  require 'rack/google-analytics'
-  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+#### Gemfile:
+    gem 'rack-google-analytics', :require => 'rack/google-analytics'
+
+#### Sinatra
+    ## app.rb
+    use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+
+#### Padrino
+
+    ## app/app.rb
+    use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+
+#### Rails
+
+    ## environment.rb:
+    config.gem 'rack-google-analytcs', :lib => 'rack/google-analytics'
+    config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+
   
 Note: since 0.2.0 this will use the asynchronous google tracker code, for the traditional behaviour please use:
 
-  require 'rack-google-analytics'
-  use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
+    use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out 
 
