@@ -1,0 +1,723 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: Rack::GoogleAnalytics</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (G)</a> &raquo; 
+    <span class='title'><a href="../Rack.html" title="Rack (module)">Rack</a></span>
+     &raquo; 
+    <span class="title">GoogleAnalytics</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Rack::GoogleAnalytics
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Rack::GoogleAnalytics</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/rack-google-analytics.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="DEFAULT_OPTIONS-constant" class="">DEFAULT_OPTIONS =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+Default options for Rack::GoogleAnalytics these can be overridden by
+sending the `options` argument to the constructor
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li><a href="#initialize-instance_method" title="Rack::GoogleAnalytics#initialize (method)">#initialize</a></li>
+    
+  </ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span><span class='symbol'>:environments</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>production</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="KNOWN_ENVIRONMENTAL_VARIABLES-constant" class="">KNOWN_ENVIRONMENTAL_VARIABLES =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+Environmental varaibles (ENV) checked for an environment. the first with a
+value is considered to be current. When defiend the `Rails.env` method is
+also queried (as a last resort)
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li><a href="#current_environment-instance_method" title="Rack::GoogleAnalytics#current_environment (method)">#current_environment</a></li>
+    
+  </ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RACK_ENV</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RAILS_ENV</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MERB_ENV</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PADRINO_ENV</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SINATRA_ENV</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span></pre></dd>
+      
+        <dt id="TRACKER_CODE-constant" class="">TRACKER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='heredoc_beg'>&lt;&lt;-EOTC</span><span class='tstring_content'>  &lt;script type=&quot;text/javascript&quot;&gt;
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-xxxxxx-x']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+    })();
+  &lt;/script&gt;
+</span><span class='heredoc_end'>EOTC</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_call-instance_method" title="#_call (instance method)">- (Object) <strong>_call</strong>(env) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Standard Rack method&#8230;
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_for_environment%3F-instance_method" title="#active_for_environment? (instance method)">- (Boolean) <strong>active_for_environment?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call-instance_method" title="#call (instance method)">- (Object) <strong>call</strong>(env) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Thread safety effort, supposedly a shallow-clone here prevents some
+ locking issues.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#current_environment-instance_method" title="#current_environment (instance method)">- (Object) <strong>current_environment</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Detects the current environment by checking the value of the 
+ `KNOWN_ENVIRONMENTAL_VARIABLES` constant documented above.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (GoogleAnalytics) <strong>initialize</strong>(app, options = nil) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Initilise a new instance, failing to send the :tracker option as part of
+the hash will result in an ArgumentError.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inject_tracker-instance_method" title="#inject_tracker (instance method)">- (Object) <strong>inject_tracker</strong>(response) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+The money-method, this will take the `response` from the upstream
+application call and patch the correct tracker code in.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="Rack::GoogleAnalytics (class)">GoogleAnalytics</a></tt>) <strong>initialize</strong>(app, options = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Initilise a new instance, failing to send the :tracker option as part of
+the hash will result in an ArgumentError
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>app</tt>)</span>
+      
+      
+        <span class='name'>app</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Rack application object
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <span class='name'>options</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <h3>Options Hash (<tt>options</tt>):</h3>
+    <ul class="option">
+      
+        <li>
+          <span class="type">(<tt>Enumerable</tt>)</span>
+          <span class="name">:environments</span>
+          <span class="default">
+            
+              <span class="na">N/A</span>
+            
+          </span>
+          &mdash;<div class='inline'><p>
+Which environments to be active within
+</p>
+</div>
+        </tr>
+      
+    </ul>
+  
+<h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li><a href="#DEFAULT_OPTIONS-constant" title="Rack::GoogleAnalytics::DEFAULT_OPTIONS (constant)">DEFAULT_OPTIONS</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rack-google-analytics.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id app'>app</span><span class='comma'>,</span> <span class='id options'>options</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Tracker must be set!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id options'>options</span><span class='lbracket'>[</span><span class='symbol'>:tracker</span><span class='rbracket'>]</span> <span class='kw'>and</span> <span class='op'>!</span><span class='id options'>options</span><span class='lbracket'>[</span><span class='symbol'>:tracker</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id empty?'>empty?</span>
+  <span class='id options'>options</span>       <span class='op'>=</span> <span class='const'>DEFAULT_OPTIONS</span><span class='period'>.</span><span class='id merge'>merge</span><span class='lparen'>(</span><span class='id options'>options</span><span class='rparen'>)</span>
+  <span class='ivar'>@app</span>          <span class='op'>=</span> <span class='id app'>app</span>
+  <span class='ivar'>@tracker</span>      <span class='op'>=</span> <span class='id options'>options</span><span class='lbracket'>[</span><span class='symbol'>:tracker</span><span class='rbracket'>]</span>
+  <span class='ivar'>@environments</span> <span class='op'>=</span> <span class='id options'>options</span><span class='lbracket'>[</span><span class='symbol'>:environments</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="_call-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_call</strong>(env) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Standard Rack method&#8230; passes the response upstream to the Rack
+handler next in the chain.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rack-google-analytics.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id _call'>_call</span><span class='lparen'>(</span><span class='id env'>env</span><span class='rparen'>)</span>
+  <span class='ivar'>@status</span><span class='comma'>,</span> <span class='ivar'>@headers</span><span class='comma'>,</span> <span class='ivar'>@response</span> <span class='op'>=</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id call'>call</span><span class='lparen'>(</span><span class='id env'>env</span><span class='rparen'>)</span>
+  <span class='comment'># return [@status, @headers, @response] unless @headers['Content-Type'] =~ /html/ &amp;&amp; active_for_environment?
+</span>  <span class='comment'># @headers.delete('Content-Length')
+</span>  <span class='comment'># response = Rack::Response.new([], @status, @headers)
+</span>  <span class='comment'># @response.each do |fragment|
+</span>  <span class='comment'>#   response.write(inject_tracker(fragment))
+</span>  <span class='comment'># end
+</span>  <span class='comment'># response.finish
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="active_for_environment?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>active_for_environment?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77
+78</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rack-google-analytics.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id active_for_environment?'>active_for_environment?</span>
+  <span class='kw'>true</span> <span class='kw'>if</span> <span class='ivar'>@environments</span><span class='period'>.</span><span class='id include?'>include?</span><span class='lparen'>(</span><span class='id current_environment'>current_environment</span><span class='rparen'>)</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="call-instance_method">
+  
+    - (<tt>Object</tt>) <strong>call</strong>(env) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Thread safety effort, supposedly a shallow-clone here prevents some
+ locking issues. I confess to not fully understanding the implications
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rack-google-analytics.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id call'>call</span><span class='lparen'>(</span><span class='id env'>env</span><span class='rparen'>)</span>
+  <span class='id dup'>dup</span><span class='period'>.</span><span class='id _call'>_call</span><span class='lparen'>(</span><span class='id env'>env</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="current_environment-instance_method">
+  
+    - (<tt>Object</tt>) <strong>current_environment</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Detects the current environment by checking the value of the 
+ `KNOWN_ENVIRONMENTAL_VARIABLES` constant documented above. To support
+Rails 3.x it also pushes a special value to the  end of the array which
+checks the `Rails.env` method
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rack-google-analytics.rb', line 85</span>
+
+<span class='kw'>def</span> <span class='id current_environment'>current_environment</span>
+  <span class='const'>KNOWN_ENVIRONMENTAL_VARIABLES</span><span class='period'>.</span><span class='id push'>push</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>check_the_rails_constant</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id env'>env</span><span class='op'>|</span>
+    <span class='kw'>return</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='id env'>env</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id has_key?'>has_key?</span><span class='lparen'>(</span><span class='id env'>env</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id env'>env</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>check_the_rails_constant</span><span class='tstring_end'>'</span></span>
+      <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='const'>Rails</span><span class='rparen'>)</span>
+      <span class='kw'>return</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id env'>env</span>
+    <span class='kw'>end</span>
+   <span class='kw'>end</span>
+   <span class='kw'>return</span> <span class='kw'>false</span> <span class='comment'># oopse :(  
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="inject_tracker-instance_method">
+  
+    - (<tt>Object</tt>) <strong>inject_tracker</strong>(response) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note todo">
+    <strong>TODO:</strong> 
+    <div class='inline'><p>
+Make this correctly set the Content-Length header
+</p>
+</div>
+  </div>
+
+<p>
+The money-method, this will take the `response` from the upstream
+application call and patch the correct tracker code in.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+64
+65
+66
+67
+68
+69
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rack-google-analytics.rb', line 64</span>
+
+<span class='kw'>def</span> <span class='id inject_tracker'>inject_tracker</span><span class='lparen'>(</span><span class='id response'>response</span><span class='rparen'>)</span>
+  <span class='comment'># if @async
+</span>  <span class='comment'>#   tracker_code = ASYNC_TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
+</span>  <span class='comment'># else
+</span>  <span class='comment'>#   tracker_code = TRACKER_CODE.sub(/UA-xxxxxx-x/, @tracker)
+</span>  <span class='comment'># end
+</span>  <span class='comment'># response.sub!(/&lt;\/body&gt;/, &quot;\n#{tracker_code}\n&lt;/body&gt;&quot;) rescue response
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Wed Jul 21 16:46:02 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.8 (ruby-1.9.2).
+</div>
+
+  </body>
+</html>

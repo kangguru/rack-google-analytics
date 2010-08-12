@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Documentation by YARD 0.5.8</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1>rack-google-analytics</h1>
+<p>
+Simple Rack middleware to help injecting the google analytics tracking code
+into the footer of your websites.
+</p>
+<p>
+This middleware injects the code directly before the `</body>` tag of
+documents matching the `Content-Type` of `/html/` (therefore `text/html`).
+You should also be aware that as this rewrites the body length, the
+`Content-Length` header is also removed (sure, I could rewrite it, but
+i&#8217;m not aware of any benefits.)
+</p>
+<p>
+As of 0.6 the class is called Rack::GoogleAnalytics, in 0.5 and earlier
+this was incorrectly documented, and this name has now been decided upon.
+</p>
+<p>
+As of `0.2.0` there are no tests as I have not had chance to do this right.
+</p>
+<p>
+Version 0.2.0 implements the default code to be the asynchronous google
+code (see: <a
+href="http://bit.ly/async-analytics">bit.ly/async-analytics</a> ).
+</p>
+<h2>Usage</h2>
+<pre class="code">
+  <span class='id require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>rack-google-analytics</span><span class='tstring_end'>'</span></span>
+  <span class='id use'>use</span> <span class='const'>Rack</span><span class='op'>::</span><span class='const'>GoogleAnalytics</span><span class='comma'>,</span> <span class='symbol'>:tracker</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>UA-xxxxxx-x</span><span class='tstring_end'>'</span></span>
+  
+</pre>
+<p>
+Note: since 0.2.0 this will use the asynchronous google tracker code, for
+the traditional behaviour please use:
+</p>
+<pre class="code">
+  <span class='id require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>rack-google-analytics</span><span class='tstring_end'>'</span></span>
+  <span class='id use'>use</span> <span class='const'>Rack</span><span class='op'>::</span><span class='const'>GoogleAnalytics</span><span class='comma'>,</span> <span class='symbol'>:tracker</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>UA-xxxxxx-x</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:async</span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
+</pre>
+<p>
+If you are not sure what&#8217;s best, go with the defaults, and read here
+if you should opt-out 
+</p>
+<h2>Environments</h2>
+<p>
+There is a Rails-only (send a patch!) feature for only enabling this in
+certain environments, you can specify which by sending the `:env =>
+&#8216;some-env&#8217;` option when initializing the code. (Right now this
+conditionally requires the `Rails` constant.) The default is `production`.
+</p>
+<h2>Thread Safety</h2>
+<p>
+This middleware <b>should</b> be thread safe. Although my experience in
+such areas is limited, having taken the advice of those with more
+experience; I defer the call to a shallow copy of the environment, if this
+is of consequence to you please review the implementation.
+</p>
+<h2>Caveats</h2>
+<p>
+I&#8217;m not aware of any, except that I remove the `Content-Length`
+header; this may interfere with your caching, e-tags and other mechanisms,
+if you are aware of any problems, please report them via Github
+issue&#8217;s system.
+</p>
+<h2>Bugs &amp; Feedback</h2>
+<p>
+More than welcome, of course please see the notes below for
+contributor&#8217;s tips, otherwise drop me a mail or open an issue.
+</p>
+<p>
+This was of course software to scratch my itch; but I&#8217;d love to build
+on it and learn from the experiences of others using it.
+</p>
+<h2>Change Log</h2>
+<ul>
+<li><p>
+19-01-2010 Second Release, patch from github.com/ralph - makes the default
+snippet the async version from google. Use regular synchronous code with:
+`:async => false`
+</p>
+</li>
+<li><p>
+27-12-2009 First Release, extracted from the Capistrano-Website project and
+packaged with Jeweler.
+</p>
+</li>
+</ul>
+<h2>Note on Patches/Pull Requests</h2>
+<pre class="code">
+ 
+</pre>
+<ul>
+<li><p>
+Fork the project.
+</p>
+</li>
+<li><p>
+Make your feature addition or bug fix.
+</p>
+</li>
+<li><p>
+Add tests for it. This is important so I don&#8217;t break it in a future
+version unintentionally.
+</p>
+</li>
+<li><p>
+Commit, do not mess with rakefile, version, or history. (if you want to
+have your own version, that is fine but bump version in a commit by itself
+I can ignore when I pull)
+</p>
+</li>
+<li><p>
+Send me a pull request. Bonus points for topic branches.
+</p>
+</li>
+</ul>
+<h2>Copyright</h2>
+<p>
+Copyright &#169; 2009 Lee Hambley. See LICENSE for details. With thanks to
+Ralph von der Heyden <a
+href="http://github.com/ralph">github.com/ralph</a>/ and Simon `cimm`
+Schoeters <a href="http://github.com/cimm">github.com/cimm</a>/
+</p>
+</div></div>
+    
+    <div id="footer">
+  Generated on Wed Jul 21 16:47:04 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.8 (ruby-1.9.2).
+</div>
+
+  </body>
+</html>
