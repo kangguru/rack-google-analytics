@@ -26,6 +26,13 @@ Formerly this gem had an environments setting, that has been removed pending ref
     config.gem 'rack-google-analytcs', :lib => 'rack/google-analytics'
     config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 
+
+### Options
+    
+* :async      -  sets to use asyncronous tracker  
+* :multiple   -  sets track for multiple sub domains. (must also set :domain)
+* :top_level  -  sets tracker for multiple top-level domains. (must also set :domain)
+
   
 Note: since 0.2.0 this will use the asynchronous google tracker code, for the traditional behaviour please use:
 
