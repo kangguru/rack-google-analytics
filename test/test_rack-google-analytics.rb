@@ -51,7 +51,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
     should "show non-asyncronous tracker" do
       get "/bob"
       assert_match %r{_gat._getTracker}, last_response.body
-      assert_match %r{</body><script type=\"text\/javascript\">}, last_response.body
+      assert_match %r{</script></body>}, last_response.body
       assert_match %r{\"whatthe\"}, last_response.body
     end
   end

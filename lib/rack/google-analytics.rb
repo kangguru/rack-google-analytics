@@ -31,7 +31,7 @@ module Rack
       if @options[:async]
         response.gsub(%r{</head>}, @template.result(binding) + "</head>")
       else
-        response.gsub(%r{</body>}, "</body>" + @template.result(binding))
+        response.gsub(%r{</body>}, @template.result(binding) + "</body>")
       end
     end
 
