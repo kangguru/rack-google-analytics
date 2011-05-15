@@ -10,7 +10,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{\_gaq\.push}, last_response.body
         assert_match %r{\'\_setAccount\', \"somebody\"}, last_response.body
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "495", last_response.headers['Content-Length']
+        assert_equal "532", last_response.headers['Content-Length']
       end
 
       should "not add tracker to none html content-type" do
@@ -31,7 +31,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       should "add multiple domain script" do
         get "/"
         assert_match %r{'_setDomainName', \"mydomain.com\"}, last_response.body
-        assert_equal "542", last_response.headers['Content-Length']
+        assert_equal "579", last_response.headers['Content-Length']
       end
     end
     
@@ -51,7 +51,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
     should "show non-asyncronous tracker" do
       get "/bob"
       assert_match %r{_gat._getTracker}, last_response.body
-      assert_match %r{</body><script type=\"text\/javascript\">}, last_response.body
+      assert_match %r{</script></body>}, last_response.body
       assert_match %r{\"whatthe\"}, last_response.body
     end
   end
