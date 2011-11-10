@@ -23,7 +23,7 @@ Formerly this gem had an environments setting, that has been removed pending ref
 #### Rails
 
     ## environment.rb:
-    config.gem 'rack-google-analytcs', :lib => 'rack/google-analytics'
+    config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
     config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 
 
