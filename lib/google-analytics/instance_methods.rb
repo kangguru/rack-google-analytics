@@ -11,7 +11,8 @@ module GoogleAnalytics
       raise "Must be instance of CustomVar" unless var.instance_of?(CustomVar)
 
       # Store it in an instance var as well as the flash, in case of a redirect
-      self.env["google_analytics.custom_vars"] = var
+      self.env["google_analytics.custom_vars"] ||= []
+      self.env["google_analytics.custom_vars"].push(var)
     end
   end
 end

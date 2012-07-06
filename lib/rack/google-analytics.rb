@@ -18,6 +18,7 @@ module Rack
       @status, @headers, @response = @app.call(env)
       return [@status, @headers, @response] unless html?
       response = Rack::Response.new([], @status, @headers)
+      @options[:tracker_vars] = env["google_analytics.custom_vars"]
       @response.each { |fragment| response.write inject(fragment) }
       response.finish
     end
@@ -28,6 +29,7 @@ module Rack
 
     def inject(response)
       file = @options[:async] ? 'async' : 'sync'
+
       @template ||= ::ERB.new ::File.read ::File.expand_path("../templates/#{file}.erb",__FILE__)
       if @options[:async]
         response.gsub(%r{</head>}, @template.result(binding) + "</head>")
