@@ -16,8 +16,8 @@ class TestRackGoogleAnalyticsInstanceMethods < Test::Unit::TestCase
 
   class MockController < ActionController::Base
     def index
-      set_ga_custom_var(GoogleAnalytics::CustomVar.new(1, "Items Removed", "Yes", GoogleAnalytics::CustomVar::SESSION_LEVEL))
-      track_ga_event(GoogleAnalytics::Event.new("Users", "Login", "Standard"))
+      set_ga_custom_var(1, "Items Removed", "Yes", GoogleAnalytics::CustomVar::SESSION_LEVEL)
+      track_ga_event("Users", "Login", "Standard")
       render :inline => "<html><head><title>Title</title></head><body>Hello World</body></html>"
     end
   end

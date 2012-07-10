@@ -29,8 +29,8 @@ module GoogleAnalytics
     #                           //  (you might set this value by default to No)
     #      2                    // Sets the scope to session-level.  Optional parameter.
     #   ]);
-    def set_ga_custom_var(var)
-      raise "Must be instance of CustomVar" unless var.instance_of?(CustomVar)
+    def set_ga_custom_var(slot, name, value, scope = nil)
+      var = GoogleAnalytics::CustomVar.new(slot, name, value, scope)
 
       ga_custom_vars.push(var)
     end
@@ -40,9 +40,8 @@ module GoogleAnalytics
     # e.g. writes
     # _gaq.push(['_trackEvent', 'Videos', 'Play', 'Gone With the Wind']);
     #
-    def track_ga_event(var)
-      raise "Must be instance of Event" unless var.instance_of?(Event)
-
+    def track_ga_event(category, action, label = nil, value = nil, noninteraction = nil)
+      var = GoogleAnalytics::Event.new(category, action, label, value, noninteraction)
       ga_events.push(var)
     end
 
