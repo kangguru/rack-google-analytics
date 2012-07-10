@@ -29,7 +29,7 @@ class Test::Unit::TestCase
       }
   end
   
-  def mock_app(options)
+  def mock_app(app, options)
     app_options = options.slice(:events, :custom_vars )
 
     builder = Rack::Builder.new
