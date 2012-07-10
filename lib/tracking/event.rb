@@ -1,3 +1,5 @@
+require "active_support/json"
+
 module GoogleAnalytics
 
   # A Struct that mirrors the structure of a custom var defined in Google Analytics
