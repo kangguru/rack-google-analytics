@@ -12,11 +12,11 @@
   _gaq.push(['_trackPageview']);
   _gaq.push(['_trackPageLoadTime']);
 
-  <% if @options[:tracker_vars]
+<% if @options[:tracker_vars]
         @options[:tracker_vars].each do |var|
-  %>
+%>
     _gaq.push(<%= var.write() %>);
-  <% end
+<% end
   end
    %>
   (function() {
