@@ -7,22 +7,32 @@ This middleware injects either the synchronous or asynchronous Google Analytics 
 ## Usage
 
 #### Gemfile
-    gem 'rack-google-analytics'
+
+```ruby
+gem 'rack-google-analytics'
+```
 
 #### Sinatra
-    ## app.rb
-    use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+
+```ruby
+## app.rb
+use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+```
 
 #### Padrino
 
-    ## app/app.rb
-    use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+```ruby
+## app/app.rb
+use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+```
 
 #### Rails 2.X
 
-    ## environment.rb:
-    config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
-    config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+```ruby
+## environment.rb:
+config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
+config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+```
 
 ### Options
 
@@ -32,7 +42,9 @@ This middleware injects either the synchronous or asynchronous Google Analytics 
 
 Note: since 0.2.0 this will use the asynchronous Google Analytics tracking code, for the traditional behaviour please use:
 
-    use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
+```ruby
+use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
+```
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out.
 
