@@ -1,7 +1,7 @@
-require File.expand_path('../helper',__FILE__)
+require 'helper'
 
 class TestRackGoogleAnalytics < Test::Unit::TestCase
-  
+
   context "Asyncronous" do
     context "default" do
       setup { mock_app :async => true, :tracker => 'somebody' }
@@ -34,7 +34,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_equal "579", last_response.headers['Content-Length']
       end
     end
-    
+
     context "multiple top-level domains" do
       setup { mock_app :async => true, :top_level => true, :tracker => 'get', :domain => 'mydomain.com' }
       should "add top_level domain script" do
@@ -45,7 +45,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
     end
 
   end
-  
+
   context "Syncronous" do
     setup { mock_app :async => false, :tracker => 'whatthe' }
     should "show non-asyncronous tracker" do
