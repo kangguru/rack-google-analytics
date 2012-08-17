@@ -1,15 +1,17 @@
 require 'rubygems'
 require 'test/unit'
 require 'shoulda'
-require 'rack'
 require 'rack/test'
-require File.expand_path('../../lib/rack/google-analytics',__FILE__)
+
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'rack/google-analytics'
 
 class Test::Unit::TestCase
   include Rack::Test::Methods
-  
+
   def app; Rack::Lint.new(@app); end
-  
+
   def mock_app(options)
     main_app = lambda { |env|
       request = Rack::Request.new(env)
