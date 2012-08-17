@@ -4,7 +4,7 @@ require 'erb'
 module Rack
 
   class GoogleAnalytics
-    
+
     DEFAULT = { :async => true }
 
     def initialize(app, options = {})
