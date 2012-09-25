@@ -12,7 +12,7 @@ class TestRackGoogleAnalyticsEvents < Test::Unit::TestCase
         get "/"
 
         assert_match %r{\_gaq\.push}, last_response.body
-        assert_match %r{_trackEvent}, last_response.body
+        assert_match %r{_trackEvent.*_trackPageview}m, last_response.body
         assert_match %r{Users}, last_response.body
         assert_match %r{Login}, last_response.body
         assert_match %r{Standard}, last_response.body
@@ -31,7 +31,7 @@ class TestRackGoogleAnalyticsEvents < Test::Unit::TestCase
         get "/"
 
         assert_match %r{\_gaq\.push}, last_response.body
-        assert_match %r{_setCustomVar}, last_response.body
+        assert_match %r{_setCustomVar.*_trackPageview}m, last_response.body
         assert_match %r{Items Removed}, last_response.body
         assert_match %r{Yes}, last_response.body
       end
@@ -51,7 +51,7 @@ class TestRackGoogleAnalyticsEvents < Test::Unit::TestCase
         get "/"
 
         assert_match %r{\_gaq\.push}, last_response.body
-        assert_match %r{_setCustomVar}, last_response.body
+        assert_match %r{_setCustomVar.*_trackPageview}m, last_response.body
         assert_match %r{Items Removed}, last_response.body
         assert_match %r{Yes}, last_response.body
       end
