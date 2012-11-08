@@ -16,6 +16,7 @@ module Rack
 
     def _call(env)
       @status, @headers, @body = @app.call(env)
+      @domain = @options[:domain] || env['SERVER_NAME']
       return [@status, @headers, @body] unless html?
       response = Rack::Response.new([], @status, @headers)
       @body.each { |fragment| response.write inject(fragment) }
