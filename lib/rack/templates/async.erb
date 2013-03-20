@@ -9,6 +9,13 @@
   _gaq.push(['_setDomainName', 'none']);
   _gaq.push(['_setAllowLinker', true]);
 <% end %>
+<% if @options[:tracker_vars]
+        @options[:tracker_vars].each do |var|
+%>
+    _gaq.push(<%= var.write() %>);
+<% end
+  end
+   %>
   _gaq.push(['_trackPageview']);
   _gaq.push(['_trackPageLoadTime']);
 

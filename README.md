@@ -48,6 +48,26 @@ use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out.
 
+## Custom Variable Tracking
+
+** Added in this fork only **
+
+In your application controller, you may track a custom variable. For example:
+
+    set_ga_custom_var(1, "LoggedIn", value, GoogleAnalytics::CustomVar::SESSION_LEVEL)
+
+See https://developers.google.com/analytics/devguides/collection/gajs/gaTrackingCustomVariables for details.
+
+## Event Tracking
+
+** Added in this fork only **
+
+In your application controller, you may track an event. For example:
+
+    track_ga_event("Users", "Login", "Standard")
+
+See https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
+
 ## Thread Safety
 
 This middleware *should* be thread safe. Although my experience in such areas is limited, having taken the advice of those with more experience; I defer the call to a shallow copy of the environment, if this is of consequence to you please review the implementation.
