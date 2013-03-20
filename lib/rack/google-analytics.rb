@@ -17,8 +17,8 @@ module Rack
     def call(env); dup._call(env); end
 
     def _call(env)
-      @status, @headers, @response = @app.call(env)
-      return [@status, @headers, @response] unless html?
+      @status, @headers, @body = @app.call(env)
+      return [@status, @headers, @body] unless html?
       response = Rack::Response.new([], @status, @headers)
       @options[:tracker_vars] = env["google_analytics.custom_vars"] || []
 
@@ -36,6 +36,8 @@ module Rack
       end
 
       @response.each { |fragment| response.write inject(fragment) }
+      @body.close if @body.respond_to?(:close)
+      
       response.finish
     end
 

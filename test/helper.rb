@@ -1,16 +1,19 @@
 require 'rubygems'
 require 'test/unit'
 require 'shoulda'
-require 'rack'
 require 'rack/test'
 require 'active_support/core_ext/hash/slice'
 require File.expand_path('../../lib/rack/google-analytics',__FILE__)
 require File.expand_path('../../lib/tracking/custom_var',__FILE__)
 require File.expand_path('../../lib/tracking/event',__FILE__)
 
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'rack/google-analytics'
+
 class Test::Unit::TestCase
   include Rack::Test::Methods
-  
+
   def app; Rack::Lint.new(@app); end
 
   def main_app(options)
