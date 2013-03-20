@@ -50,8 +50,6 @@ If you are not sure what's best, go with the defaults, and read here if you shou
 
 ## Custom Variable Tracking
 
-** Added in this fork only **
-
 In your application controller, you may track a custom variable. For example:
 
     set_ga_custom_var(1, "LoggedIn", value, GoogleAnalytics::CustomVar::SESSION_LEVEL)
@@ -59,8 +57,6 @@ In your application controller, you may track a custom variable. For example:
 See https://developers.google.com/analytics/devguides/collection/gajs/gaTrackingCustomVariables for details.
 
 ## Event Tracking
-
-** Added in this fork only **
 
 In your application controller, you may track an event. For example:
 
