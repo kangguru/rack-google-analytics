@@ -35,7 +35,7 @@ module Rack
         env["rack.session"][EVENT_TRACKING_KEY] = env[EVENT_TRACKING_KEY]
       end
 
-      @response.each { |fragment| response.write inject(fragment) }
+      @body.each { |fragment| response.write inject(fragment) }
       @body.close if @body.respond_to?(:close)
       
       response.finish
