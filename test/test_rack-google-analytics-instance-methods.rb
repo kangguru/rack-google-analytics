@@ -7,8 +7,7 @@ require 'rack'
 require 'rack/test'
 require 'active_support/core_ext/hash/slice'
 require "action_controller"
-require File.expand_path('../../lib/google-analytics', __FILE__)
-
+require File.expand_path('../../lib/rack-google-analytics', __FILE__)
 
 class TestRackGoogleAnalyticsInstanceMethods < Test::Unit::TestCase
 
