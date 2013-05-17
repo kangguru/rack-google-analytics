@@ -39,6 +39,7 @@ config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 * `:async`      -  sets to use asynchronous tracker
 * `:multiple`   -  sets track for multiple subdomains. (must also set :domain)
 * `:top_level`  -  sets tracker for multiple top-level domains. (must also set :domain)
+* `:anonymizeIp` -  sets the tracker to remove the last octet from all IP addresses, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApi_gat?hl=de#_gat._anonymizeIp for details.
 
 Note: since 0.2.0 this will use the asynchronous Google Analytics tracking code, for the traditional behaviour please use:
 
