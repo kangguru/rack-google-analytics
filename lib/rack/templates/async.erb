@@ -10,7 +10,7 @@
   _gaq.push(['_setAllowLinker', true]);
 <% end %>
 <% if @options[:anonymizeIp] %>
-  _gaq.push (['_gat._anonymizeIp']);
+  _gaq.push(['_gat._anonymizeIp']);
 <% end %>
 <% if @options[:tracker_vars]
         @options[:tracker_vars].each do |var|
