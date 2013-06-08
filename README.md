@@ -34,6 +34,13 @@ config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
 config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 ```
 
+#### Rails 3.X
+
+```ruby
+## applicationt.rb:
+config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
+```
+
 ### Options
 
 * `:async`      -  sets to use asynchronous tracker
