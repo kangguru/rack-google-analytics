@@ -45,7 +45,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
     end
 
     context "with anonymizeIp" do
-      setup { mock_app :async => true, :tracker => 'happy', :anonymizeIp => true }
+      setup { mock_app :async => true, :tracker => 'happy', :anonymize_ip => true }
       should "add top_level domain script" do
         get "/"
         assert_match %r{\'_gat._anonymizeIp\'}, last_response.body
@@ -72,7 +72,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
     end
 
     context "with anonymizeIp" do
-      setup { mock_app :async => false, :tracker => 'happy', :anonymizeIp => true }
+      setup { mock_app :async => false, :tracker => 'happy', :anonymize_ip => true }
       should "show call to anonymizeIp function" do
         get "/bob"
         assert_match %r{_gat._anonymizeIp()}, last_response.body

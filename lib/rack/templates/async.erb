@@ -9,7 +9,7 @@
   _gaq.push(['_setDomainName', 'none']);
   _gaq.push(['_setAllowLinker', true]);
 <% end %>
-<% if @options[:anonymizeIp] %>
+<% if @options[:anonymize_ip] %>
   _gaq.push(['_gat._anonymizeIp']);
 <% end %>
 <% if @options[:tracker_vars]
