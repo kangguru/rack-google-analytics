@@ -60,7 +60,9 @@ If you are not sure what's best, go with the defaults, and read here if you shou
 
 In your application controller, you may track a custom variable. For example:
 
-    set_ga_custom_var(1, "LoggedIn", value, GoogleAnalytics::CustomVar::SESSION_LEVEL)
+```ruby
+set_ga_custom_var(1, "LoggedIn", value, GoogleAnalytics::CustomVar::SESSION_LEVEL)
+```
 
 See https://developers.google.com/analytics/devguides/collection/gajs/gaTrackingCustomVariables for details.
 
@@ -68,7 +70,9 @@ See https://developers.google.com/analytics/devguides/collection/gajs/gaTracking
 
 In your application controller, you may track an event. For example:
 
-    track_ga_event("Users", "Login", "Standard")
+```ruby
+track_ga_event("Users", "Login", "Standard")
+```
 
 See https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
 
