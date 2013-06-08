@@ -26,6 +26,18 @@ use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 ```
 
+#### Rails 3.X
+
+This example uses environment variables.
+
+```ruby
+## config/initializers/rack-google-analytics.rb
+Rails.application.config.middleware.use(Rack::GoogleAnalytics,
+                                        tracker: ENV['GOOGLE_ANALYTICS_ID'],
+                                        multiple: true,
+                                        domain: ENV['GOOGLE_ANALYTICS_DOMAIN']) if ENV['GOOGLE_ANALYTICS_ID']
+```
+
 #### Rails 2.X
 
 ```ruby
@@ -60,7 +72,9 @@ If you are not sure what's best, go with the defaults, and read here if you shou
 
 In your application controller, you may track a custom variable. For example:
 
-    set_ga_custom_var(1, "LoggedIn", value, GoogleAnalytics::CustomVar::SESSION_LEVEL)
+```ruby
+set_ga_custom_var(1, "LoggedIn", value, GoogleAnalytics::CustomVar::SESSION_LEVEL)
+```
 
 See https://developers.google.com/analytics/devguides/collection/gajs/gaTrackingCustomVariables for details.
 
@@ -68,7 +82,9 @@ See https://developers.google.com/analytics/devguides/collection/gajs/gaTracking
 
 In your application controller, you may track an event. For example:
 
-    track_ga_event("Users", "Login", "Standard")
+```ruby
+track_ga_event("Users", "Login", "Standard")
+```
 
 See https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
 
