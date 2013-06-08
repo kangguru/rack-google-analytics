@@ -37,7 +37,7 @@ config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 #### Rails 3.X
 
 ```ruby
-## applicationt.rb:
+## application.rb:
 config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 ```
 
