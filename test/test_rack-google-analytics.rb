@@ -10,7 +10,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{\_gaq\.push}, last_response.body
         assert_match %r{\'\_setAccount\', \"somebody\"}, last_response.body
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "533", last_response.headers['Content-Length']
+        assert_equal "534", last_response.headers['Content-Length']
       end
 
       should "not add tracker to none html content-type" do
@@ -31,7 +31,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       should "add multiple domain script" do
         get "/"
         assert_match %r{'_setDomainName', \"mydomain.com\"}, last_response.body
-        assert_equal "580", last_response.headers['Content-Length']
+        assert_equal "581", last_response.headers['Content-Length']
       end
     end
 
@@ -44,15 +44,40 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with anonymizeIp" do
+      setup { mock_app :async => true, :tracker => 'happy', :anonymizeIp => true }
+      should "add top_level domain script" do
+        get "/"
+        assert_match %r{\'_gat._anonymizeIp\'}, last_response.body
+        assert_match %r{\"happy\"}, last_response.body
+      end
+    end
+
   end
 
   context "Syncronous" do
-    setup { mock_app :async => false, :tracker => 'whatthe' }
-    should "show non-asyncronous tracker" do
-      get "/bob"
-      assert_match %r{_gat._getTracker}, last_response.body
-      assert_match %r{</script></body>}, last_response.body
-      assert_match %r{\"whatthe\"}, last_response.body
+    context "default" do
+      setup { mock_app :async => false, :tracker => 'whatthe' }
+      should "show non-asyncronous tracker" do
+        get "/bob"
+        assert_match %r{_gat._getTracker}, last_response.body
+        assert_match %r{</script></body>}, last_response.body
+        assert_match %r{\"whatthe\"}, last_response.body
+      end
+
+      should "not call to anonymizeIp function" do
+        get "/bob"
+        assert_no_match %r{_gat._anonymizeIp()}, last_response.body
+      end
+    end
+
+    context "with anonymizeIp" do
+      setup { mock_app :async => false, :tracker => 'happy', :anonymizeIp => true }
+      should "show call to anonymizeIp function" do
+        get "/bob"
+        assert_match %r{_gat._anonymizeIp()}, last_response.body
+        assert_match %r{\"happy\"}, last_response.body
+      end
     end
   end
 end

@@ -5,5 +5,8 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 try{
 var pageTracker = _gat._getTracker(<%= @options[:tracker].inspect %>);
+<% if @options[:anonymizeIp] %>
+_gat._anonymizeIp();
+<% end %>
 pageTracker._trackPageview();
 } catch(err) {}</script>
