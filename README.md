@@ -76,6 +76,15 @@ track_ga_event("Users", "Login", "Standard")
 
 See https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
 
+## Custom Push
+
+In your application controller, you may push arbritrary data. For example:
+
+```ruby
+ga_push("_addItem", "ID", "SKU")
+```
+
+
 ## Thread Safety
 
 This middleware *should* be thread safe. Although my experience in such areas is limited, having taken the advice of those with more experience; I defer the call to a shallow copy of the environment, if this is of consequence to you please review the implementation.
