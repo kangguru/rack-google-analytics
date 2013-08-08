@@ -59,7 +59,7 @@ class TestRackGoogleAnalyticsInstanceMethods < Test::Unit::TestCase
       end
 
       should "have custom vars" do
-        get :index
+        get "/"
         assert last_response.ok?
 
         assert_match %r{\_gaq\.push}, last_response.body
