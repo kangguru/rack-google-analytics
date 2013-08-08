@@ -45,5 +45,10 @@ module GoogleAnalytics
       ga_events.push(var)
     end
 
+    def ga_push(*attributes)
+      var = GoogleAnalytics::Push.new(attributes)
+      ga_events.push(var)
+    end
+
   end
 end

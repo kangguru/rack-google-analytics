@@ -17,7 +17,12 @@ class TestRackGoogleAnalyticsInstanceMethods < Test::Unit::TestCase
     def index
       set_ga_custom_var(1, "Items Removed", "Yes", GoogleAnalytics::CustomVar::SESSION_LEVEL)
       track_ga_event("Users", "Login", "Standard")
+      ga_push("_addItem", "ID", "SKU")
       render :inline => "<html><head><title>Title</title></head><body>Hello World</body></html>"
+    end
+
+    def action_method?(name)
+      true
     end
   end
 
@@ -54,13 +59,23 @@ class TestRackGoogleAnalyticsInstanceMethods < Test::Unit::TestCase
       end
 
       should "have custom vars" do
-        get "/"
+        get :index
         assert last_response.ok?
 
         assert_match %r{\_gaq\.push}, last_response.body
         assert_match %r{_setCustomVar.*_trackPageview}m, last_response.body
         assert_match %r{Items Removed}, last_response.body
         assert_match %r{Yes}, last_response.body
+      end
+
+      should "have generic push" do
+        get "/"
+        assert last_response.ok?
+
+        assert_match %r{\_gaq\.push}, last_response.body
+        assert_match %r{_addItem.*_trackPageview}m, last_response.body
+        assert_match %r{ID}, last_response.body
+        assert_match %r{SKU}, last_response.body
       end
     end
   end
