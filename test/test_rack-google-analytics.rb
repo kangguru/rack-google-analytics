@@ -10,7 +10,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{\_gaq\.push}, last_response.body
         assert_match %r{\'\_setAccount\', \"somebody\"}, last_response.body
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "534", last_response.headers['Content-Length']
+        assert_equal "499", last_response.headers['Content-Length']
       end
 
       should "not add tracker to none html content-type" do
@@ -31,7 +31,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       should "add multiple domain script" do
         get "/"
         assert_match %r{'_setDomainName', \"mydomain.com\"}, last_response.body
-        assert_equal "581", last_response.headers['Content-Length']
+        assert_equal "546", last_response.headers['Content-Length']
       end
     end
 
@@ -50,6 +50,14 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         get "/"
         assert_match %r{\'_gat._anonymizeIp\'}, last_response.body
         assert_match %r{\"happy\"}, last_response.body
+      end
+    end
+
+    context "with custom _setSiteSpeedSampleRate" do
+      setup { mock_app :async => true, :tracker => 'happy', :site_speed_sample_rate => 5 }
+      should "add top_level domain script" do
+        get "/"
+        assert_match %r{'_setSiteSpeedSampleRate', 5}, last_response.body
       end
     end
 

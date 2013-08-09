@@ -12,6 +12,10 @@
 <% if @options[:anonymize_ip] %>
   _gaq.push(['_gat._anonymizeIp']);
 <% end %>
+<% if @options[:site_speed_sample_rate] %>
+  _gaq.push(['_setSiteSpeedSampleRate', <%= @options[:site_speed_sample_rate].to_i %>]);
+<% end %>
+
 <% if @options[:tracker_vars]
         @options[:tracker_vars].each do |var|
 %>
@@ -20,7 +24,6 @@
   end
    %>
   _gaq.push(['_trackPageview']);
-  _gaq.push(['_trackPageLoadTime']);
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

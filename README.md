@@ -47,6 +47,7 @@ config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 * `:multiple`   -  sets track for multiple subdomains. (must also set :domain)
 * `:top_level`  -  sets tracker for multiple top-level domains. (must also set :domain)
 * `:anonymize_ip` -  sets the tracker to remove the last octet from all IP addresses, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApi_gat?hl=de#_gat._anonymizeIp for details.
+* `:site_speed_sample_rate` - Defines a new sample set size for Site Speed data collection, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiBasicConfiguration?hl=de#_gat.GA_Tracker_._setSiteSpeedSampleRate
 
 Note: since 0.2.0 this will use the asynchronous Google Analytics tracking code, for the traditional behaviour please use:
 
