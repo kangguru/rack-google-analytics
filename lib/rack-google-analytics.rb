@@ -4,6 +4,7 @@ require 'rack/google-analytics'
 
 require "tracking/custom_var"
 require "tracking/event"
+require "tracking/push"
 
 require "google-analytics/instance_methods"
 
