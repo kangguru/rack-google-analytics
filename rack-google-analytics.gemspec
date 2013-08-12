@@ -4,6 +4,7 @@ require 'rack/google-analytics/version'
 
 Gem::Specification.new do |s|
   s.name        = "rack-google-analytics"
+  s.license     = "MIT"
   s.version     = Rack::GoogleAnalytics::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Lee Hambley"]
