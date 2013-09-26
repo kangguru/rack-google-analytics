@@ -1,3 +1,7 @@
+## Master
+
+* [#25][] remove duplicated version file
+
 ## 0.12.0
 
 ### Improvements
@@ -81,6 +85,7 @@
 [#9]: https://github.com/leehambley/rack-google-analytics/pull/9
 [#10]: https://github.com/leehambley/rack-google-analytics/issues/10
 [#22]: https://github.com/leehambley/rack-google-analytics/pull/22
+[#25]: https://github.com/leehambley/rack-google-analytics/issues/25
 [@achiu]: https://github.com/achiu
 [@cimm]: https://github.com/cimm
 [@ralph]: https://github.com/ralph
