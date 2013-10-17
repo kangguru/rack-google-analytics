@@ -24,6 +24,11 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_no_match %r{\_gaq\.push}, last_response.body
         assert_match %r{bob here}, last_response.body
       end
+
+      should "redirects" do
+        get "/redirect"
+        assert_equal 302, last_response.status
+      end
     end
 
     context "multiple sub domains" do
