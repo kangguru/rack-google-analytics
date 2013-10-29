@@ -6,7 +6,7 @@ module Rack
   class GoogleAnalytics
 
     EVENT_TRACKING_KEY = "google_analytics.event_tracking"
-    
+
     DEFAULT = { :async => true }
 
     def initialize(app, options = {})
@@ -30,14 +30,14 @@ module Rack
         session = env["rack.session"]
         stored_events = session.delete(EVENT_TRACKING_KEY) if session
         @options[:tracker_vars] += stored_events unless stored_events.nil?
-      elsif response.redirection?
+      elsif response.redirection? && env["rack.session"]
         # Store the events until next time
         env["rack.session"][EVENT_TRACKING_KEY] = env[EVENT_TRACKING_KEY]
       end
 
       @body.each { |fragment| response.write inject(fragment) }
       @body.close if @body.respond_to?(:close)
-      
+
       response.finish
     end
 

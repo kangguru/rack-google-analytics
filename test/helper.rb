@@ -31,6 +31,8 @@ class Test::Unit::TestCase
           [200, {'Content-Type' => 'application/xml'}, ['Xml here']]
         when '/bob' then
           [200, {'Content-Type' => 'application/html'}, ['<body>bob here</body>']]
+        when '/redirect' then
+          [302, {'Content-Type' => 'application/html'}, ['<body>redirection</body>']]
         else
           [404, 'Nothing here']
       end
