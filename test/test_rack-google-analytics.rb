@@ -66,6 +66,14 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with advertising option" do
+      setup { mock_app :async => true, :tracker => 'happy', :advertising => true }
+      should "use doubleclick script" do
+        get "/"
+        assert_match %r{stats.g.doubleclick.net/dc.js}, last_response.body
+      end
+    end
+
   end
 
   context "Syncronous" do
