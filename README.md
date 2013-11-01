@@ -43,30 +43,11 @@ config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 
 ### Options
 
-* `:async`      -  sets to use asynchronous tracker
-* `:multiple`   -  sets track for multiple subdomains. (must also set :domain)
-* `:domain`     -  sets the domain name for the GATC cookies. Defaults to `auto`. (must also set :multiple)
-* `:top_level`  -  sets tracker for multiple top-level domains. (must also set :domain)
 * `:anonymize_ip` -  sets the tracker to remove the last octet from all IP addresses, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApi_gat?hl=de#_gat._anonymizeIp for details.
+* `:domain`     -  sets the domain name for the GATC cookies. Defaults to `auto`. (must also set :multiple)
 * `:site_speed_sample_rate` - Defines a new sample set size for Site Speed data collection, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiBasicConfiguration?hl=de#_gat.GA_Tracker_._setSiteSpeedSampleRate
 
-Note: since 0.2.0 this will use the asynchronous Google Analytics tracking code, for the traditional behaviour please use:
-
-```ruby
-use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x', :async => false
-```
-
 If you are not sure what's best, go with the defaults, and read here if you should opt-out.
-
-## Custom Variable Tracking
-
-In your application controller, you may track a custom variable. For example:
-
-```ruby
-set_ga_custom_var(1, "LoggedIn", value, GoogleAnalytics::CustomVar::SESSION_LEVEL)
-```
-
-See https://developers.google.com/analytics/devguides/collection/gajs/gaTrackingCustomVariables for details.
 
 ## Event Tracking
 
@@ -76,7 +57,7 @@ In your application controller, you may track an event. For example:
 ga_track_event("Users", "Login", "Standard")
 ```
 
-See https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
+See https://developers.google.com/analytics/devguides/collection/analyticsjs/events
 
 ## Custom Push
 

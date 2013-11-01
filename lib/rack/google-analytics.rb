@@ -7,11 +7,9 @@ module Rack
 
     EVENT_TRACKING_KEY = "google_analytics.event_tracking"
 
-    DEFAULT = { :async => true }
-
     def initialize(app, options = {})
       raise ArgumentError, "Tracker must be set!" unless options[:tracker] and !options[:tracker].empty?
-      @app, @options = app, DEFAULT.merge(options)
+      @app, @options = app, options
     end
 
     def call(env); dup._call(env); end
@@ -46,14 +44,10 @@ module Rack
     def html?; @headers['Content-Type'] =~ /html/; end
 
     def inject(response)
-      file = @options[:async] ? 'async' : 'sync'
+      @tracker_options = { cookieDomain: @options[:domain] }.select{|k,v| v }.to_json
+      @template ||= ::ERB.new ::File.read ::File.expand_path("../templates/async.erb",__FILE__)
 
-      @template ||= ::ERB.new ::File.read ::File.expand_path("../templates/#{file}.erb",__FILE__)
-      if @options[:async]
-        response.gsub(%r{</head>}, @template.result(binding) + "</head>")
-      else
-        response.gsub(%r{</body>}, @template.result(binding) + "</body>")
-      end
+      response.gsub(%r{</head>}, @template.result(binding) + "</head>")
     end
 
   end

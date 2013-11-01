@@ -7,23 +7,23 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       setup { mock_app :async => true, :tracker => 'somebody' }
       should "show asyncronous tracker" do
         get "/"
-        assert_match %r{ga\('create', 'somebody'\)}, last_response.body
+        assert_match %r{ga\('create', 'somebody', {}\)}, last_response.body
         assert_match %r{ga\('send', 'pageview'\)}, last_response.body
 
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "448", last_response.headers['Content-Length']
+        assert_equal "452", last_response.headers['Content-Length']
       end
 
       should "not add tracker to none html content-type" do
         get "/test.xml"
-        assert_no_match %r{ga\('create', 'somebody'\)}, last_response.body
+        assert_no_match %r{ga\('create', 'somebody', {}\)}, last_response.body
 
         assert_match %r{Xml here}, last_response.body
       end
 
       should "not add without </head>" do
         get "/bob"
-        assert_no_match %r{ga\('create', 'somebody'\)}, last_response.body
+        assert_no_match %r{ga\('create', 'somebody', {}\)}, last_response.body
         assert_match %r{bob here}, last_response.body
       end
 
@@ -31,6 +31,20 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         get "/redirect"
         assert_equal 302, last_response.status
       end
+    end
+
+    context "with custom domain" do
+      setup { mock_app :async => true, tracker: 'somebody', domain: "railslabs.com" }
+
+      should "show asyncronous tracker with cookieDomain" do
+        get "/"
+        assert_match %r{ga\('create', 'somebody', {\"cookieDomain\":\"railslabs.com\"}\)}, last_response.body
+        assert_match %r{ga\('send', 'pageview'\)}, last_response.body
+
+        assert_match %r{</script></head>}, last_response.body
+        assert_equal "482", last_response.headers['Content-Length']
+      end
+
     end
 
     # context "multiple sub domains" do
