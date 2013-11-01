@@ -4,7 +4,6 @@ require 'shoulda'
 require 'rack/test'
 require 'active_support/core_ext/hash/slice'
 require File.expand_path('../../lib/rack/google-analytics', __FILE__)
-require File.expand_path('../../lib/tracking/custom_var', __FILE__)
 require File.expand_path('../../lib/tracking/event', __FILE__)
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))

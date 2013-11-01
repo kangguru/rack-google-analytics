@@ -1,8 +1,8 @@
 require "active_support/json"
+require "active_support/ordered_hash"
 
 require 'rack/google-analytics'
 
-require "tracking/custom_var"
 require "tracking/event"
 require "tracking/push"
 
