@@ -1,5 +1,7 @@
 # Rack google Analytics
 
+[![Build Status](https://travis-ci.org/kangguru/rack-google-analytics.png?branch=master)](https://travis-ci.org/kangguru/rack-google-analytics)
+
 Simple Rack middleware to help injecting the Google Analytics tracking code in your website.
 
 This middleware injects either the synchronous or asynchronous Google Analytics tracking code into the correct place of any request only when the response's `Content-Type` header contains `html` (therefore `text/html` and similar).
