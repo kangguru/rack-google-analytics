@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Lee Hambley"]
   s.email       = ["lee.hambley@gmail.com"]
-  s.homepage    = "https://github.com/leehambley/rack-google-analytics"
+  s.homepage    = "https://github.com/kangguru/rack-google-analytics"
   s.summary     = "Rack middleware to inject the Google Analytics tracking code into outgoing responses."
   s.description = "Simple Rack middleware for implementing google analytics tracking in your Ruby-Rack based project. Supports synchronous and asynchronous insertion and configurable load options."
 
