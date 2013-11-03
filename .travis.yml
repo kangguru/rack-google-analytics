@@ -5,3 +5,4 @@ rvm:
 branches:
   only:
     - master
+    - analytics-js
