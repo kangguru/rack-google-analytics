@@ -7,7 +7,7 @@ module Rack
 
     EVENT_TRACKING_KEY = "google_analytics.event_tracking"
 
-    DEFAULT = { :async => true }
+    DEFAULT = { :async => true, :advertising => false }
 
     def initialize(app, options = {})
       raise ArgumentError, "Tracker must be set!" unless options[:tracker] and !options[:tracker].empty?
