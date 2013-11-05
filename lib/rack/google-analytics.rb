@@ -8,7 +8,6 @@ module Rack
     EVENT_TRACKING_KEY = "google_analytics.event_tracking"
 
     def initialize(app, options = {})
-      raise ArgumentError, "Tracker must be set!" unless options[:tracker] and !options[:tracker].empty?
       @app, @options = app, options
     end
 
