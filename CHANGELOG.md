@@ -1,7 +1,7 @@
 ## Master
 
 * [#25][] remove duplicated version file
-* allow tracking of events only with this gem, if you want to do initialize the GA tracker in the frontend.  simply ommit the `tracker` option when using the middleware
+* [#29][] allow tracking of "events only" with the server-side middleware. if you want to do initialize the GA tracker in the frontend.  simply ommit the `tracker` option when using the middleware
 
 ## 0.12.0
 
