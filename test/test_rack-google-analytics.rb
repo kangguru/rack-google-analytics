@@ -11,7 +11,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{ga\('send', 'pageview'\)}, last_response.body
 
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "452", last_response.headers['Content-Length']
+        assert_equal "456", last_response.headers['Content-Length']
       end
 
       should "not add tracker to none html content-type" do
@@ -42,7 +42,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{ga\('send', 'pageview'\)}, last_response.body
 
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "482", last_response.headers['Content-Length']
+        assert_equal "486", last_response.headers['Content-Length']
       end
 
     end

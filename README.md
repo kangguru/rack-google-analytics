@@ -69,6 +69,12 @@ In your application controller, you may push arbritrary data. For example:
 ga_push("_addItem", "ID", "SKU")
 ```
 
+## Special use case:  Event tracking only
+
+If you already set up your Google Analytics `analytics.js` tracker object with pageview tracking in your templates/frontend (inside the `<head>`), the only thing you might want to use the `rack-google-analytics` middleware for is to track server-side events which you can't properly track in the forntend.  In that case simply use the middleware without specifying the `:tracker` option, then it will only render the event tracking code (`ga('send', hitType: 'event', ..)`) and nothing else.
+
+    config.middleware.use Rack::GoogleAnalytics
+
 
 ## Thread Safety
 
