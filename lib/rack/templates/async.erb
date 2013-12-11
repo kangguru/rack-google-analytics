@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', <%= @options[:tracker].inspect %>]);
+  _gaq.push(['_setAccount', <%= @tracker.inspect %>]);
 <% if @options[:multiple] %>
   _gaq.push(['_setDomainName', <%= @options[:domain].inspect %>]);
 <% end %>
