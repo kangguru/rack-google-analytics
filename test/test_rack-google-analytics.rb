@@ -31,6 +31,18 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "dynamic tracker" do
+      context "well-formed result" do
+        setup { mock_app :async => true, :tracker =>
+            lambda { |env| return 'dynamictracker'}}
+
+        should 'call tracker lambdas to obtain tracking codes' do
+          get '/'
+          assert_match %r{\'\_setAccount\', \"dynamictracker\"}, last_response.body
+        end
+      end
+    end
+
     context "multiple sub domains" do
       setup { mock_app :async => true, :multiple => true, :tracker => 'gonna', :domain => 'mydomain.com' }
       should "add multiple domain script" do
