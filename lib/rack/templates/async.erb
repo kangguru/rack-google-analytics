@@ -1,11 +1,11 @@
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', <%= @options[:tracker].inspect %>]);
 <% if @options[:inpage_pageid] %>
   var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
   _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
 <% end %>
+  _gaq.push(['_setAccount', <%= @options[:tracker].inspect %>]);
 <% if @options[:multiple] %>
   _gaq.push(['_setDomainName', <%= @options[:domain].inspect %>]);
 <% end %>
