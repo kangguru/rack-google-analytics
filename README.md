@@ -49,6 +49,8 @@ config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 * `:top_level`  -  sets tracker for multiple top-level domains. (must also set :domain)
 * `:anonymize_ip` -  sets the tracker to remove the last octet from all IP addresses, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApi_gat?hl=de#_gat._anonymizeIp for details.
 * `:site_speed_sample_rate` - Defines a new sample set size for Site Speed data collection, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiBasicConfiguration?hl=de#_gat.GA_Tracker_._setSiteSpeedSampleRate
+* `:adjusted_bounce_rate_timeouts` - An array of times in seconds that the tracker will use to set
+timeouts for adjusted bounce rate tracking. See http://analytics.blogspot.ca/2012/07/tracking-adjusted-bounce-rate-in-google.html for details.
 
 Note: since 0.2.0 this will use the asynchronous Google Analytics tracking code, for the traditional behaviour please use:
 
