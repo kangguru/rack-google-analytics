@@ -1,6 +1,9 @@
-## Master
+## 0.13.0
 
 * [#25][] remove duplicated version file
+* [#26][] Avoid error on redirection when "rack.session" is nil
+* [#27][] support doubleclick to display advertising
+* [#37][] custom adjusted bounce rates
 
 ## 0.12.0
 
@@ -86,6 +89,9 @@
 [#10]: https://github.com/leehambley/rack-google-analytics/issues/10
 [#22]: https://github.com/leehambley/rack-google-analytics/pull/22
 [#25]: https://github.com/leehambley/rack-google-analytics/issues/25
+[#26]: https://github.com/kangguru/rack-google-analytics/issues/26
+[#27]: https://github.com/kangguru/rack-google-analytics/issues/27
+[#37]: https://github.com/kangguru/rack-google-analytics/issues/37
 [@achiu]: https://github.com/achiu
 [@cimm]: https://github.com/cimm
 [@ralph]: https://github.com/ralph
