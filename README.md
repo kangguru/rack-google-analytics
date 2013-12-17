@@ -1,3 +1,11 @@
+# Important!!!
+
+Version 1.0.0 is in the making and will be not be backwards compatible... but will bring
+all the shinyness from analytics.js to your middleware stack.
+
+You can checkout the current state [here](https://github.com/kangguru/rack-google-analytics/tree/analytics-js)
+and there's also a [pre release](http://rubygems.org/gems/rack-google-analytics/versions/1.0.0.pre1) on rubygems.org
+
 # Rack google Analytics
 
 [![Build Status](https://travis-ci.org/kangguru/rack-google-analytics.png?branch=master)](https://travis-ci.org/kangguru/rack-google-analytics)
