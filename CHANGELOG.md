@@ -1,7 +1,20 @@
-## Master
+## 1.0.0.pre1
+
+* migrating to analytics.js
+
+## 0.14.0
+
+* [#34][] adding proper dependencies to the gemspec
+* [#36][] lambda-based tracking code support
+* [#35][] Added to support inpage pageid plugin
+
+## 0.13.0
 
 * [#25][] remove duplicated version file
-* [#29][] allow tracking of "events only" with the server-side middleware. if you want to do initialize the GA tracker in the frontend.  simply ommit the `tracker` option when using the middleware
+* [#26][] Avoid error on redirection when "rack.session" is nil
+* [#27][] support doubleclick to display advertising
+* [#37][] custom adjusted bounce rates
+
 
 ## 0.12.0
 

@@ -4,7 +4,7 @@
 
 Simple Rack middleware to help injecting the Google Analytics tracking code in your website.
 
-This middleware injects either the synchronous or asynchronous Google Analytics tracking code into the correct place of any request only when the response's `Content-Type` header contains `html` (therefore `text/html` and similar).
+This middleware injects the Google Analytics tracking code into the correct place of any request only when the response's `Content-Type` header contains `html` (therefore `text/html` and similar).
 
 ## Usage
 
