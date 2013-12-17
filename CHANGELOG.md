@@ -1,3 +1,7 @@
+## Master
+
+* [#34][] adding proper dependencies to the gemspec
+
 ## 0.13.0
 
 * [#25][] remove duplicated version file
@@ -92,6 +96,7 @@
 [#26]: https://github.com/kangguru/rack-google-analytics/issues/26
 [#27]: https://github.com/kangguru/rack-google-analytics/issues/27
 [#37]: https://github.com/kangguru/rack-google-analytics/issues/37
+[#34]: https://github.com/kangguru/rack-google-analytics/issues/34
 [@achiu]: https://github.com/achiu
 [@cimm]: https://github.com/cimm
 [@ralph]: https://github.com/ralph
