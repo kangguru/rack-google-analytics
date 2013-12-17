@@ -1,6 +1,8 @@
 ## Master
 
 * [#34][] adding proper dependencies to the gemspec
+* [#36][] lambda-based tracking code support
+* [#35][] Added to support inpage pageid plugin
 
 ## 0.13.0
 
@@ -97,6 +99,8 @@
 [#27]: https://github.com/kangguru/rack-google-analytics/issues/27
 [#37]: https://github.com/kangguru/rack-google-analytics/issues/37
 [#34]: https://github.com/kangguru/rack-google-analytics/issues/34
+[#36]: https://github.com/kangguru/rack-google-analytics/issues/36
+[#35]: https://github.com/kangguru/rack-google-analytics/issues/35
 [@achiu]: https://github.com/achiu
 [@cimm]: https://github.com/cimm
 [@ralph]: https://github.com/ralph
