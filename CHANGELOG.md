@@ -1,4 +1,4 @@
-## Master
+## 0.14.0
 
 * [#34][] adding proper dependencies to the gemspec
 * [#36][] lambda-based tracking code support
