@@ -28,15 +28,7 @@ use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 ```
 
-#### Rails 2.X
-
-```ruby
-## environment.rb:
-config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
-config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
-```
-
-#### Rails 3.X
+#### Rails 3.X and Rails 4.X
 
 ```ruby
 ## application.rb:
@@ -48,6 +40,8 @@ config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 * `:anonymize_ip` -  sets the tracker to remove the last octet from all IP addresses, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApi_gat?hl=de#_gat._anonymizeIp for details.
 * `:domain`     -  sets the domain name for the GATC cookies. Defaults to `auto`. (must also set :multiple)
 * `:site_speed_sample_rate` - Defines a new sample set size for Site Speed data collection, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiBasicConfiguration?hl=de#_gat.GA_Tracker_._setSiteSpeedSampleRate
+* `:enhanced_link_attribution` - Enable enhanced link attribution, see https://support.google.com/analytics/answer/2558867?hl=en
+* `:adjusted_bounce_rate_timeouts` - An array of times in seconds that the tracker will use to set timeouts for adjusted bounce rate tracking. See http://analytics.blogspot.ca/2012/07/tracking-adjusted-bounce-rate-in-google.html for details.
 
 If you are not sure what's best, go with the defaults, and read here if you should opt-out.
 
@@ -67,6 +61,17 @@ In your application controller, you may push arbritrary data. For example:
 
 ```ruby
 ga_push("_addItem", "ID", "SKU")
+```
+
+## Dynamic Tracking Code
+
+You may instead define your tracking code as a lambda taking the Rack environment, so that you may set the tracking code
+dynamically based upon information in the Rack environment. For example:
+
+```ruby
+config.middleware.use Rack::GoogleAnalytics, :tracker => lambda { |env|
+        return env[:site_ga].tracker if env[:site_ga]
+}
 ```
 
 ## Special use case:  Event tracking only

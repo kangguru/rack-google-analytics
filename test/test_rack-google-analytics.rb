@@ -4,14 +4,13 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
 
   context "Asyncronous" do
     context "default" do
-      setup { mock_app :async => true, :tracker => 'somebody' }
+      setup { mock_app tracker: 'somebody' }
       should "show asyncronous tracker" do
         get "/"
         assert_match %r{ga\('create', 'somebody', {}\)}, last_response.body
         assert_match %r{ga\('send', 'pageview'\)}, last_response.body
 
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "456", last_response.headers['Content-Length']
       end
 
       should "not add tracker to none html content-type" do
@@ -34,7 +33,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
     end
 
     context "with custom domain" do
-      setup { mock_app :async => true, tracker: 'somebody', domain: "railslabs.com" }
+      setup { mock_app tracker: 'somebody', domain: "railslabs.com" }
 
       should "show asyncronous tracker with cookieDomain" do
         get "/"
@@ -42,34 +41,45 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{ga\('send', 'pageview'\)}, last_response.body
 
         assert_match %r{</script></head>}, last_response.body
-        assert_equal "486", last_response.headers['Content-Length']
       end
 
     end
 
-    # context "multiple sub domains" do
-    #   setup { mock_app :async => true, :multiple => true, :tracker => 'gonna', :domain => 'mydomain.com' }
-    #   should "add multiple domain script" do
-    #     get "/"
-    #     assert_match %r{'_setDomainName', \"mydomain.com\"}, last_response.body
-    #     assert_equal "546", last_response.headers['Content-Length']
-    #   end
-    # end
-
-    # context "multiple top-level domains" do
-    #   setup { mock_app :async => true, :top_level => true, :tracker => 'get', :domain => 'mydomain.com' }
-    #   should "add top_level domain script" do
-    #     get "/"
-    #     assert_match %r{'_setDomainName', 'none'}, last_response.body
-    #     assert_match %r{'_setAllowLinker', true}, last_response.body
-    #   end
-    # end
+    context "with enhanced_link_attribution" do
+      setup { mock_app tracker: 'happy', enhanced_link_attribution: true }
+      should "embedded the linkid plugin script" do
+        get "/"
+        assert_match %r{linkid.js}, last_response.body
+      end
+    end
 
     context "with anonymizeIp" do
       setup { mock_app :async => true, :tracker => 'happy', :anonymize_ip => true }
       should "set anonymizeIp to true" do
         get "/"
         assert_match %r{ga\('set', 'anonymizeIp', true\)}, last_response.body
+      end
+    end
+
+    context "with dynamic tracker" do
+      setup do
+        mock_app tracker: lambda { |env| return env["misc"] }, misc: "foobar"
+      end
+
+      should 'call tracker lambdas to obtain tracking codes' do
+        get '/'
+        assert_match %r{ga\('create', 'foobar', {}\)}, last_response.body
+      end
+    end
+
+    context 'adjusted bounce rate' do
+      setup do
+        mock_app tracker: 'afake', adjusted_bounce_rate_timeouts: [15, 30]
+      end
+      should "add timeouts to push read events" do
+         get "/"
+         assert_match %r{ga\('send', 'event', '15_seconds', 'read'\)}, last_response.body
+         assert_match %r{ga\('send', 'event', '30_seconds', 'read'\)}, last_response.body
       end
     end
 

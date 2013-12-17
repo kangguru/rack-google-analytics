@@ -8,9 +8,20 @@
 
   ga('create', '<%= @options[:tracker] %>', <%= @tracker_options %>);
 
+<% if @options[:enhanced_link_attribution] %>
+  ga('require', 'linkid', 'linkid.js');
+<% end %>
+
 <% if @options[:anonymize_ip] %>
   ga('set', 'anonymizeIp', true);
 <% end %>
+
+<% if @options[:adjusted_bounce_rate_timeouts] %>
+<% @options[:adjusted_bounce_rate_timeouts].each do |timeout| %>
+    setTimeout(ga('send', 'event', '<%= "#{timeout.to_s}_seconds" %>', 'read'),<%= timeout*1000 %>);
+<% end %>
+<% end %>
+
 <% end %>
 
 <% if @options[:tracker_vars]
