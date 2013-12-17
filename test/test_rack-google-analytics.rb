@@ -61,6 +61,15 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "multiple sub domains without domain option" do
+      setup { mock_app :async => true, :multiple => true, :tracker => 'gonna'}
+      should "add multiple domain script" do
+        get "/"
+        assert_match %r{'_setDomainName', \"example.org\"}, last_response.body
+        assert_equal "578", last_response.headers['Content-Length']
+      end
+    end
+
     context "multiple top-level domains" do
       setup { mock_app :async => true, :top_level => true, :tracker => 'get', :domain => 'mydomain.com' }
       should "add top_level domain script" do

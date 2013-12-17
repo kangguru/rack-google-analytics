@@ -7,7 +7,7 @@
 <% end %>
   _gaq.push(['_setAccount', <%= @tracker.inspect %>]);
 <% if @options[:multiple] %>
-  _gaq.push(['_setDomainName', <%= @options[:domain].inspect %>]);
+  _gaq.push(['_setDomainName', <%= @domain.inspect %>]);
 <% end %>
 <% if @options[:top_level] %>
   _gaq.push(['_setDomainName', 'none']);
