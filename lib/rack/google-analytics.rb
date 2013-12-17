@@ -10,7 +10,7 @@ module Rack
     DEFAULT = { :async => true, :advertising => false }
 
     def initialize(app, options = {})
-      raise ArgumentError, "Tracker must be set!" unless options[:tracker] and !options[:tracker].empty?
+      raise ArgumentError, "Tracker must be set!" unless valid_tracker?(options[:tracker])
       @app, @options = app, DEFAULT.merge(options)
     end
 
@@ -34,6 +34,7 @@ module Rack
         # Store the events until next time
         env["rack.session"][EVENT_TRACKING_KEY] = env[EVENT_TRACKING_KEY]
       end
+      @tracker = tracker(env, @options[:tracker])
 
       @body.each { |fragment| response.write inject(fragment) }
       @body.close if @body.respond_to?(:close)
@@ -42,6 +43,12 @@ module Rack
     end
 
     private
+
+    # tracker should be non-nil, non-empty string or a lambda
+    def valid_tracker?(tracker)
+      return false unless tracker
+      return (tracker.respond_to?(:call) && tracker.lambda?) || !tracker.empty?
+    end
 
     def html?; @headers['Content-Type'] =~ /html/; end
 
@@ -54,6 +61,12 @@ module Rack
       else
         response.gsub(%r{</body>}, @template.result(binding) + "</body>")
       end
+    end
+
+    # obtain tracking code dynamically if it's a lambda, use the string directly otherwise
+    def tracker(env, tracker)
+      return tracker unless tracker.respond_to?(:call)
+      return tracker.call(env)
     end
 
   end

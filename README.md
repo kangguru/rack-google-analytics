@@ -90,6 +90,17 @@ In your application controller, you may push arbritrary data. For example:
 ga_push("_addItem", "ID", "SKU")
 ```
 
+## Dynamic Tracking Code
+
+You may instead define your tracking code as a lambda taking the Rack environment, so that you may set the tracking code
+dynamically based upon information in the Rack environment. For example:
+
+```ruby
+config.middleware.use Rack::GoogleAnalytics, :tracker => lambda { |env|
+        return env[:site_ga].tracker if env[:site_ga]
+}
+```
+
 
 ## Thread Safety
 
