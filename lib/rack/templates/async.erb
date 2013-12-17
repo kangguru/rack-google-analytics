@@ -23,6 +23,11 @@
 <% end
   end
    %>
+<% if @options[:adjusted_bounce_rate_timeouts] %>
+<% @options[:adjusted_bounce_rate_timeouts].each do |timeout| %>
+    setTimeout("_gaq.push(['_trackEvent', <%= "#{timeout.to_s}_seconds" %>, 'read'])",<%= timeout*1000 %>);
+<% end %>
+<% end %>
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -34,5 +39,4 @@
 <% end %>
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-
 </script>

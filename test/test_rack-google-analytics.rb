@@ -31,6 +31,15 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context 'adjusted bounce rate' do
+      setup { mock_app :async => true, :tracker => 'afake', :adjusted_bounce_rate_timeouts => [15, 30] }
+      should "add timeouts to push read events" do
+        get "/"
+        assert_match %r{'_trackEvent', 15_seconds}, last_response.body
+        assert_match %r{'_trackEvent', 30_seconds}, last_response.body
+      end
+    end
+
     context "multiple sub domains" do
       setup { mock_app :async => true, :multiple => true, :tracker => 'gonna', :domain => 'mydomain.com' }
       should "add multiple domain script" do
