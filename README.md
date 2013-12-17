@@ -36,7 +36,7 @@ config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
 config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 ```
 
-#### Rails 3.X
+#### Rails 3.X and 4.X
 
 ```ruby
 ## application.rb:
