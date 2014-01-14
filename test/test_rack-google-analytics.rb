@@ -31,6 +31,24 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context ":if option" do
+      context "returns true" do
+        setup { mock_app :async => true, :tracker => 'somebody', :if =>  lambda { |env| return true} }
+        should "add tracker" do
+            get "/"
+            assert_match %r{\_gaq\.push}, last_response.body
+        end
+      end
+
+      context "returns false" do
+        setup { mock_app :async => true, :tracker => 'somebody', :if =>  lambda { |env| return false} }
+        should "not add tracker" do
+            get "/"
+            assert_no_match %r{\_gaq\.push}, last_response.body
+        end
+      end
+    end
+
     context 'adjusted bounce rate' do
       setup { mock_app :async => true, :tracker => 'afake', :adjusted_bounce_rate_timeouts => [15, 30] }
       should "add timeouts to push read events" do

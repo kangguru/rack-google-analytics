@@ -19,6 +19,8 @@ module Rack
     def _call(env)
       @status, @headers, @body = @app.call(env)
       return [@status, @headers, @body] unless html?
+      return [@status, @headers, @body] if skip?(env)
+
       response = Rack::Response.new([], @status, @headers)
       @options[:tracker_vars] = env["google_analytics.custom_vars"] || []
 
@@ -67,6 +69,12 @@ module Rack
     def tracker(env, tracker)
       return tracker unless tracker.respond_to?(:call)
       return tracker.call(env)
+    end
+
+    def skip?(env)
+      return false if @options[:if].nil?
+      return !@options[:if] unless @options[:if].respond_to?(:call)
+      return !@options[:if].call(env)
     end
 
   end
