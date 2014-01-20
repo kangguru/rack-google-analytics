@@ -1,6 +1,6 @@
 # Important!!!
 
-Version 1.0.0 is in the making and will be not be backwards compatible... but will bring
+Version 1.0.0 is in the making and will not be backwards compatible... but will bring
 all the shinyness from analytics.js to your middleware stack.
 
 You can checkout the current state [here](https://github.com/kangguru/rack-google-analytics/tree/analytics-js)
