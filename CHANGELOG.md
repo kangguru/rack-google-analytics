@@ -1,4 +1,4 @@
-## 1.0.0.pre1
+## 1.0.0
 
 * migrating to analytics.js
 
