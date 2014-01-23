@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'pry-debugger'
 require 'test/unit'
 require 'shoulda'
 require 'rack/test'
