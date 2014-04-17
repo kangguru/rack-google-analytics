@@ -53,6 +53,14 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with advertising" do
+      setup { mock_app tracker: 'happy', advertising: true }
+      should "require displayfeatures" do
+        get "/"
+        assert_match %r{ga\('require', 'displayfeatures'\)}, last_response.body
+      end
+    end
+
     context "with anonymizeIp" do
       setup { mock_app :async => true, :tracker => 'happy', :anonymize_ip => true }
       should "set anonymizeIp to true" do
