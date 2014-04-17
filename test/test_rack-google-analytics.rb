@@ -53,6 +53,14 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with enhanced_user_attribution" do
+      setup { mock_app tracker: 'happy', enhanced_user_attribution: true }
+      should "embedded the displayfeatures plugin script" do
+        get "/"
+        assert_match %r{displayfeatures}, last_response.body
+      end
+    end
+
     context "with anonymizeIp" do
       setup { mock_app :async => true, :tracker => 'happy', :anonymize_ip => true }
       should "set anonymizeIp to true" do

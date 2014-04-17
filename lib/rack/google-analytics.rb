@@ -6,7 +6,7 @@ module Rack
   class GoogleAnalytics
 
     EVENT_TRACKING_KEY = "google_analytics.event_tracking"
-    DEFAULT = { async: true, enhanced_link_attribution: false }
+    DEFAULT = { async: true, enhanced_link_attribution: false, enhanced_user_attribution: false }
 
     def initialize(app, options = {})
       @app, @options = app, DEFAULT.merge(options)
