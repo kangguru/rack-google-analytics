@@ -12,6 +12,10 @@
   ga('require', 'linkid', 'linkid.js');
 <% end %>
 
+<% if @options[:enhanced_user_attribution] %>
+  ga('require', 'displayfeatures');
+<% end %>
+
 <% if @options[:anonymize_ip] %>
   ga('set', 'anonymizeIp', true);
 <% end %>
