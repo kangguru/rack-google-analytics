@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Display Advertising
+
 ## 1.0.0
 
 * migrating to analytics.js
