@@ -40,7 +40,7 @@
   ga('require', 'ecommerce', 'ecommerce.js');
 <% end %>
 
-<% if @options[:tracker] %>
+<% if @options[:tracker] && @options[:track_pageview] %>
    ga('send', 'pageview');
 <% end %>
 
