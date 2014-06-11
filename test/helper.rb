@@ -22,6 +22,7 @@ class Test::Unit::TestCase
       env["google_analytics.event_tracking"] = options[:events] if options[:events]
       env["google_analytics.custom_vars"] = options[:custom_vars] if options[:custom_vars]
       env["misc"] = options[:misc] if options[:misc]
+      env['rack.session'] = options[:rack_session] if options[:rack_session]
 
       request = Rack::Request.new(env)
       case request.path
@@ -40,7 +41,7 @@ class Test::Unit::TestCase
   end
 
   def mock_app(options)
-    app_options = options.slice(:events, :custom_vars, :misc)
+    app_options = options.slice(:events, :custom_vars, :misc, :rack_session)
 
     builder = Rack::Builder.new
     builder.use Rack::GoogleAnalytics, options
