@@ -61,6 +61,14 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with e-commerce" do
+      setup { mock_app tracker: 'happy', ecommerce: true }
+      should "require ecommerce" do
+        get "/"
+        assert_match %r{ga\('require', 'ecommerce', 'ecommerce\.js'\)}, last_response.body
+      end
+    end
+
     context "with anonymizeIp" do
       setup { mock_app :async => true, :tracker => 'happy', :anonymize_ip => true }
       should "set anonymizeIp to true" do
