@@ -1,4 +1,4 @@
-## master
+## 1.2.0
 
 * E-commerce tracking
 
