@@ -1,3 +1,10 @@
+## PLEASE READ:
+
+There is a new gem for various tracking and analytics services, which includes all the functionality of *rack-google-analytics*.
+So if you need more than just google, **checkout the [rack-tracker](https://github.com/railslove/rack-tracker) gem**.
+
+---
+
 # Rack google Analytics
 
 [![Build Status](https://travis-ci.org/kangguru/rack-google-analytics.png?branch=analytics-js)](https://travis-ci.org/kangguru/rack-google-analytics)
