@@ -20,17 +20,17 @@ module Rack
       response = Rack::Response.new([], @status, @headers)
       @options[:tracker_vars] = env["google_analytics.custom_vars"] || []
 
+      # Get any stored events from a redirection
+      stored_events = env["rack.session"].delete(EVENT_TRACKING_KEY) if env["rack.session"]
+
       if response.ok?
         # Write out the events now
         @options[:tracker_vars] += (env[EVENT_TRACKING_KEY]) unless env[EVENT_TRACKING_KEY].nil?
-
-        # Get any stored events from a redirection
-        session = env["rack.session"]
-        stored_events = session.delete(EVENT_TRACKING_KEY) if session
         @options[:tracker_vars] += stored_events unless stored_events.nil?
       elsif response.redirection? && env["rack.session"]
         # Store the events until next time
-        env["rack.session"][EVENT_TRACKING_KEY] = env[EVENT_TRACKING_KEY]
+        events_to_be_stored = (env[EVENT_TRACKING_KEY] || []) + (stored_events || [])
+        env["rack.session"][EVENT_TRACKING_KEY] = events_to_be_stored unless events_to_be_stored.empty?
       end
 
       @options[:tracker] = expand_tracker(env, @options[:tracker])

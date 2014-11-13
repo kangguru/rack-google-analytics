@@ -32,6 +32,25 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "memorized events" do
+      setup do
+        events = [GoogleAnalytics::Event.new("NewEvent", "Happens", "Standard")]
+        rack_session = { "google_analytics.event_tracking" => [GoogleAnalytics::Event.new("OldEvent", "Happened", "Standard")] }
+        mock_app :async => true, :tracker => 'somebody', :events => events, :rack_session => rack_session
+      end
+      should "add both events on success" do
+        get "/"
+        assert_match %r{ga\('send', {\"hitType\":\"event\",\"eventCategory\":\"NewEvent\",\"eventAction\":\"Happens\",\"eventLabel\":\"Standard\"}\)}, last_response.body
+        assert_match %r{ga\('send', {\"hitType\":\"event\",\"eventCategory\":\"OldEvent\",\"eventAction\":\"Happened\",\"eventLabel\":\"Standard\"}\)}, last_response.body
+      end
+
+      should "store both events on redirect" do
+        get "/redirect"
+        assert_equal 302, last_response.status
+        assert_equal [GoogleAnalytics::Event.new("NewEvent", "Happens", "Standard"), GoogleAnalytics::Event.new("OldEvent", "Happened", "Standard")], last_request.env['rack.session']['google_analytics.event_tracking']
+      end
+    end
+
     context "with custom domain" do
       setup { mock_app tracker: 'somebody', domain: "railslabs.com" }
 
