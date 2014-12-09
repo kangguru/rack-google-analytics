@@ -99,6 +99,20 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with multiple trackers" do
+      setup { mock_app trackers: [['name1','horchata'], ['name2','slurpee']]}
+      should "show multiple trackers" do
+        get "/"
+        assert_match %r{ga\('create', 'horchata', {}\)}, last_response.body
+        assert_match %r{ga\('create', 'slurpee', {}\)}, last_response.body
+      end
+      should "should trigger pageview for each tracker" do
+        get "/"
+        assert_match %r{ga\('send', 'pageview'\);}, last_response.body
+        assert_match %r{ga\('name2.send', 'pageview'\);}, last_response.body
+      end
+    end
+
     # context "with custom _setSiteSpeedSampleRate" do
     #   setup { mock_app :async => true, :tracker => 'happy', :site_speed_sample_rate => 5 }
     #   should "add top_level domain script" do

@@ -1,12 +1,19 @@
 <script type="text/javascript">
 
-<% if @options[:tracker] %>
+<% if @options[:tracker] || @options[:trackers] %>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', '<%= @options[:tracker] %>', <%= @tracker_options %>);
+  <% if @options[:tracker] %>
+    ga('create', '<%= @options[:tracker] %>', <%= @tracker_options %>);
+  <% else %>
+    <% @options[:trackers].each_with_index do |pair, i| %>
+      <% name, tracker = pair %>
+      ga('create', '<%= tracker %>', <%= @tracker_options %>)<%= ", {'name': '#{name}'}" if i > 0 %>;
+    <% end %>
+  <% end %>
 
 <% if @options[:enhanced_link_attribution] %>
   ga('require', 'linkid', 'linkid.js');
@@ -41,7 +48,16 @@
 <% end %>
 
 <% if @options[:tracker] %>
-   ga('send', 'pageview');
+  ga('send', 'pageview');
+<% elsif @options[:trackers] %>
+  <% @options[:trackers].each_with_index do |pair, i| %>
+    <% name, tracker = pair %>
+    <% if i == 0 %>
+      ga('send', 'pageview');
+    <% else %>
+      ga('<%= name %>.send', 'pageview');
+    <% end %>
+  <% end %>
 <% end %>
 
 </script>
