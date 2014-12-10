@@ -7,11 +7,11 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   <% if @options[:tracker] %>
-    ga('create', '<%= @options[:tracker] %>', <%= @tracker_options %>);
+    ga('create', '<%= @options[:tracker] %>', <%= @tracker_options.to_json %>);
   <% else %>
     <% @options[:trackers].each_with_index do |pair, i| %>
       <% name, tracker = pair %>
-      ga('create', '<%= tracker %>', <%= @tracker_options %>)<%= ", {'name': '#{name}'}" if i > 0 %>;
+      ga('create', '<%= tracker %>', <%= (i > 0 ? @tracker_options.merge(:name => name) : @tracker_options).to_json %>);
     <% end %>
   <% end %>
 

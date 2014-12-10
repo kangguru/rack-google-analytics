@@ -104,7 +104,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       should "show multiple trackers" do
         get "/"
         assert_match %r{ga\('create', 'horchata', {}\)}, last_response.body
-        assert_match %r{ga\('create', 'slurpee', {}\)}, last_response.body
+        assert_match %r{ga\('create', 'slurpee', {"name":"name2"}\)}, last_response.body
       end
       should "should trigger pageview for each tracker" do
         get "/"

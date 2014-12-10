@@ -46,7 +46,7 @@ module Rack
     def html?; @headers['Content-Type'] =~ /html/; end
 
     def inject(response)
-      @tracker_options = { cookieDomain: @options[:domain] }.select{|k,v| v }.to_json
+      @tracker_options = { cookieDomain: @options[:domain] }.select{|k,v| v }
       @template ||= ::ERB.new ::File.read ::File.expand_path("../templates/async.erb",__FILE__)
 
       response.gsub(%r{</head>}, @template.result(binding) + "</head>")
