@@ -86,6 +86,15 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         get '/'
         assert_match %r{ga\('create', 'foobar', {}\)}, last_response.body
       end
+
+      # TODO couldn't figure out how to alter the env for the same app
+      # should 'call tracker lambdas for each request' do
+      #   get '/'
+      #   assert_match %r{ga\('create', 'foobar', {}\)}, last_response.body
+      #   # TODO magically change env['misc'] to "beeblebrax"
+      #   get '/'
+      #   assert_match %r{ga\('create', 'beeblebrax', {}\)}, last_response.body
+      # end
     end
 
     context 'adjusted bounce rate' do

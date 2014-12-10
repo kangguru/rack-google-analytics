@@ -33,12 +33,14 @@ module Rack
         env["rack.session"][EVENT_TRACKING_KEY] = env[EVENT_TRACKING_KEY]
       end
 
-      @options[:tracker] = expand_tracker(env, @options[:tracker])
-      @options[:trackers] = expand_trackers(env, @options[:trackers])
+      @tracker = expand_tracker(env, @options[:tracker])
+      @trackers = expand_trackers(env, @options[:trackers])
 
       @body.each { |fragment| response.write inject(fragment) }
       @body.close if @body.respond_to?(:close)
 
+      @tracker = nil
+      @trackers = nil
       response.finish
     end
 
@@ -49,7 +51,6 @@ module Rack
     def inject(response)
       @tracker_options = { cookieDomain: @options[:domain] }.select{|k,v| v }
       @template ||= ::ERB.new ::File.read ::File.expand_path("../templates/async.erb",__FILE__)
-
       response.gsub(%r{</head>}, @template.result(binding) + "</head>")
     end
 
