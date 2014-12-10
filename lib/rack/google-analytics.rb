@@ -34,6 +34,7 @@ module Rack
       end
 
       @options[:tracker] = expand_tracker(env, @options[:tracker])
+      @options[:trackers] = expand_trackers(env, @options[:trackers])
 
       @body.each { |fragment| response.write inject(fragment) }
       @body.close if @body.respond_to?(:close)
@@ -54,6 +55,10 @@ module Rack
 
     def expand_tracker(env, tracker)
       tracker.respond_to?(:call) ? tracker.call(env) : tracker
+    end
+
+    def expand_trackers(env, trackers)
+      trackers.respond_to?(:call) ? trackers.call(env) : trackers
     end
 
   end

@@ -113,6 +113,19 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with multiple trackers block" do
+      setup do
+        mock_app trackers: lambda {|env|
+          [['name1','horchata'], ['name2','slurpee']]
+        }
+      end
+      should "show multiple trackers" do
+        get "/"
+        assert_match %r{ga\('create', 'horchata', {}\)}, last_response.body
+        assert_match %r{ga\('create', 'slurpee', {"name":"name2"}\)}, last_response.body
+      end
+    end
+
     # context "with custom _setSiteSpeedSampleRate" do
     #   setup { mock_app :async => true, :tracker => 'happy', :site_speed_sample_rate => 5 }
     #   should "add top_level domain script" do
