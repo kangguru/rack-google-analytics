@@ -44,6 +44,8 @@ config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-xxxxxx-x'
 
 ### Options
 
+* `:tracker` - sets the Google Analytics tracker
+* `:trackers` - array of arrays to set multiple trackers. Takes the form `[['name1', 'tracker1'], ['name2', 'tracker2'], ...]`. Note that `name1` in this example will be ignored because the first tracker is the default. All additional trackers must be named. See https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#multipletrackers for details.
 * `:anonymize_ip` -  sets the tracker to remove the last octet from all IP addresses, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApi_gat?hl=de#_gat._anonymizeIp for details.
 * `:domain`     -  sets the domain name for the GATC cookies. Defaults to `auto`.
 * `:site_speed_sample_rate` - Defines a new sample set size for Site Speed data collection, see https://developers.google.com/analytics/devguides/collection/gajs/methods/gaJSApiBasicConfiguration?hl=de#_gat.GA_Tracker_._setSiteSpeedSampleRate

@@ -86,6 +86,15 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         get '/'
         assert_match %r{ga\('create', 'foobar', {}\)}, last_response.body
       end
+
+      # TODO couldn't figure out how to alter the env for the same app
+      # should 'call tracker lambdas for each request' do
+      #   get '/'
+      #   assert_match %r{ga\('create', 'foobar', {}\)}, last_response.body
+      #   # TODO magically change env['misc'] to "beeblebrax"
+      #   get '/'
+      #   assert_match %r{ga\('create', 'beeblebrax', {}\)}, last_response.body
+      # end
     end
 
     context 'adjusted bounce rate' do
@@ -96,6 +105,33 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
          get "/"
          assert_match %r{ga\('send', 'event', '15_seconds', 'read'\)}, last_response.body
          assert_match %r{ga\('send', 'event', '30_seconds', 'read'\)}, last_response.body
+      end
+    end
+
+    context "with multiple trackers" do
+      setup { mock_app trackers: [['name1','horchata'], ['name2','slurpee']]}
+      should "show multiple trackers" do
+        get "/"
+        assert_match %r{ga\('create', 'horchata', {}\)}, last_response.body
+        assert_match %r{ga\('create', 'slurpee', {"name":"name2"}\)}, last_response.body
+      end
+      should "should trigger pageview for each tracker" do
+        get "/"
+        assert_match %r{ga\('send', 'pageview'\);}, last_response.body
+        assert_match %r{ga\('name2.send', 'pageview'\);}, last_response.body
+      end
+    end
+
+    context "with multiple trackers block" do
+      setup do
+        mock_app trackers: lambda {|env|
+          [['name1','horchata'], ['name2','slurpee']]
+        }
+      end
+      should "show multiple trackers" do
+        get "/"
+        assert_match %r{ga\('create', 'horchata', {}\)}, last_response.body
+        assert_match %r{ga\('create', 'slurpee', {"name":"name2"}\)}, last_response.body
       end
     end
 
