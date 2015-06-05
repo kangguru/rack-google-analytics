@@ -32,6 +32,20 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       end
     end
 
+    context "with disabled pageview tracking" do
+      setup { mock_app tracker: 'somebody', track_pageview: false }
+      should "show asyncronous tracker" do
+        get "/"
+        assert_match %r{ga\('create', 'somebody', {}\)}, last_response.body
+        assert_match %r{</script></head>}, last_response.body
+      end
+
+      should "not track pageview" do
+        get "/"
+        assert_no_match %r{ga\('send', 'pageview'\)}, last_response.body
+      end
+    end
+
     context "with custom domain" do
       setup { mock_app tracker: 'somebody', domain: "railslabs.com" }
 
