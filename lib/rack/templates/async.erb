@@ -35,6 +35,9 @@
 <% if @options[:advertising] %>
   ga('require', 'displayfeatures');
 <% end %>
+<% if @options[:ecommerce] %>
+  ga('require', 'ecommerce', 'ecommerce.js');
+<% end %>
 
 <% if @options[:ecommerce] %>
   ga('require', 'ecommerce', 'ecommerce.js');
